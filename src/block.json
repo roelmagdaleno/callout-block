@@ -1,0 +1,40 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "roelmagdaleno/callout-box",
+    "version": "1.0.0",
+    "title": "Callout Box",
+    "category": "media",
+    "icon": "welcome-write-blog",
+    "description": "Add a callout box to the WordPress block editor.",
+    "keywords": [
+        "callout",
+        "box"
+    ],
+    "supports": {
+        "html": false
+    },
+    "attributes": {
+        "content": {
+            "type": "string",
+            "source": "html",
+            "selector": "p"
+        },
+        "backgroundColor": {
+            "type": "string",
+            "default": false
+        },
+        "textColor": {
+            "type": "string",
+            "default": false
+        },
+        "iconColor": {
+            "type": "string",
+            "default": false
+        }
+    },
+    "textdomain": "callout-box",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./editor.css",
+    "style": "file:./style.css"
+}

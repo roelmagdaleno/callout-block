@@ -1,0 +1,26 @@
+{
+	"name": "callout-box",
+	"version": "1.0.0",
+	"description": "Add a callout box to the WordPress block editor.",
+	"author": "Roel Magdaleno",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^25.1.0"
+	},
+	"dependencies": {
+		"@wordpress/block-editor": "^11.1.0",
+		"@wordpress/components": "^23.1.0",
+		"@wordpress/element": "^5.1.0",
+		"@wordpress/i18n": "^4.24.0"
+	}
+}
