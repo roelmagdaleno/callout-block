@@ -14,23 +14,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _heroicons_react_24_solid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @heroicons/react/24/solid */ "./node_modules/@heroicons/react/24/solid/esm/index.js");
-/* harmony import */ var _heroicons_react_24_outline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @heroicons/react/24/outline */ "./node_modules/@heroicons/react/24/outline/esm/index.js");
-/* harmony import */ var uppercamelcase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uppercamelcase */ "./node_modules/uppercamelcase/index.js");
-/* harmony import */ var uppercamelcase__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(uppercamelcase__WEBPACK_IMPORTED_MODULE_1__);
-
+/* harmony import */ var _heroicons_react_24_solid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @heroicons/react/24/solid */ "./node_modules/@heroicons/react/24/solid/esm/index.js");
+/* harmony import */ var _heroicons_react_24_outline__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @heroicons/react/24/outline */ "./node_modules/@heroicons/react/24/outline/esm/index.js");
 
 
 
 function Icon(props) {
   const methods = {
-    solid: _heroicons_react_24_solid__WEBPACK_IMPORTED_MODULE_2__,
-    outline: _heroicons_react_24_outline__WEBPACK_IMPORTED_MODULE_3__
+    solid: _heroicons_react_24_solid__WEBPACK_IMPORTED_MODULE_1__,
+    outline: _heroicons_react_24_outline__WEBPACK_IMPORTED_MODULE_2__
   };
-  const icon = props.icon;
-  const iconName = icon.component ? icon.component : uppercamelcase__WEBPACK_IMPORTED_MODULE_1___default()(icon.name);
-  const Component = `${iconName}Icon`;
-  const Icon = methods[props.method][Component];
+  const Icon = methods[props.method][props.component];
+  if (!Icon) {
+    return null;
+  }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(Icon, {
     className: "wp-callout-box-icon",
     width: props.width || 30,
@@ -64,7 +61,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const gridIcons = (icons, iconType) => {
+const gridIcons = (icons, iconType, props) => {
+  const {
+    setOpen,
+    setAttributes
+  } = props;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalGrid, {
     columns: 8,
     gap: 6
@@ -74,11 +75,18 @@ const gridIcons = (icons, iconType) => {
       variant: "tertiary",
       className: `wp-callout-box-icon-button`,
       label: icon.name,
-      title: icon.name
+      title: icon.name,
+      onClick: () => {
+        setAttributes({
+          icon: icon.component,
+          iconType
+        });
+        setOpen(false);
+      }
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: `wp-callout-box-icon ${iconType}`
     }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Icon__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      icon: icon,
+      component: icon.component,
       method: iconType
     })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "wp-callout-box-icon-name"
@@ -88,7 +96,9 @@ const gridIcons = (icons, iconType) => {
 function IconsModal(props) {
   const {
     isOpen,
-    setOpen
+    setOpen,
+    attributes,
+    setAttributes
   } = props;
   if (!isOpen) {
     return null;
@@ -134,7 +144,7 @@ function IconsModal(props) {
     style: {
       overflowY: "scroll"
     }
-  }, gridIcons(icons, iconType))));
+  }, gridIcons(icons, iconType, props))));
 }
 
 /***/ }),
@@ -158,24 +168,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./icons */ "./src/icons.js");
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Icon */ "./src/Icon.js");
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
-/* harmony import */ var _components_IconsModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/IconsModal */ "./src/components/IconsModal.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Icon */ "./src/Icon.js");
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _components_IconsModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/IconsModal */ "./src/components/IconsModal.js");
 
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
-
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
- */
 
 
 
@@ -199,7 +195,11 @@ function Edit(props) {
   } = props;
   const {
     content,
-    icon
+    icon,
+    iconType,
+    iconWidth,
+    iconNextContent,
+    iconGap
   } = attributes;
   const [isOpen, setOpen] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const inspectorControls = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
@@ -208,18 +208,72 @@ function Edit(props) {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Icons powered by', 'callout-box'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "https://heroicons.com",
     target: "_blank"
-  }, "heroicons"), "."), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, {
-    className: `callout-box-icon__panel-row`
+  }, "heroicons"), "."), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-callout-box-setting-box"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
     variant: "secondary",
     onClick: () => setOpen(true)
-  }, "Select Icon"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_IconsModal__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, "Select Icon"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_IconsModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
     isOpen: isOpen,
-    setOpen: setOpen
+    setOpen: setOpen,
+    attributes: attributes,
+    setAttributes: setAttributes
   }), icon && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    variant: "secondary"
-  }, "Select Icon")))));
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, inspectorControls, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)(), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+    variant: "link",
+    style: {
+      marginLeft: "10px"
+    },
+    onClick: () => setAttributes({
+      icon: ''
+    })
+  }, "Clear"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-callout-box-setting-box"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Next to the content', 'callout-box'),
+    checked: iconNextContent,
+    disabled: icon === '',
+    onChange: iconNextContent => setAttributes({
+      iconNextContent
+    })
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-callout-box-setting-box"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalNumberControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Width', 'callout-box'),
+    value: iconWidth,
+    min: 0,
+    disabled: icon === '',
+    onChange: iconWidth => setAttributes({
+      iconWidth
+    })
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-callout-box-setting-box"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalUnitControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Gap', 'callout-box'),
+    value: iconGap,
+    disabled: icon === '',
+    min: 0,
+    onChange: iconGap => setAttributes({
+      iconGap
+    })
+  }))))));
+  const iconGapStyles = icon && iconGap !== '0' ? {
+    gap: iconGap
+  } : {};
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, inspectorControls, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
+    className: iconNextContent && 'icon-next-to-content',
+    style: iconGapStyles
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null), icon && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-callout-box-icon__container",
+    style: {
+      width: `${iconWidth}px`,
+      height: `${iconWidth}px`
+    }
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Icon__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    component: icon,
+    method: iconType,
+    width: iconWidth,
+    height: iconWidth
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     onChange: content => setAttributes({
       content
     }),
@@ -246,591 +300,881 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "heroicons": () => (/* binding */ heroicons)
 /* harmony export */ });
 const heroicons = [{
-  name: 'academic-cap'
+  name: 'academic-cap',
+  component: 'AcademicCapIcon'
 }, {
-  name: 'adjustments-horizontal'
+  name: 'adjustments-horizontal',
+  component: 'AdjustmentsHorizontalIcon'
 }, {
-  name: 'adjustments-vertical'
+  name: 'adjustments-vertical',
+  component: 'AdjustmentsVerticalIcon'
 }, {
-  name: 'archive-box-arrow-down'
+  name: 'archive-box-arrow-down',
+  component: 'ArchiveBoxArrowDownIcon'
 }, {
-  name: 'archive-box-x-mark'
+  name: 'archive-box-x-mark',
+  component: 'ArchiveBoxXMarkIcon'
 }, {
-  name: 'archive-box'
+  name: 'archive-box',
+  component: 'ArchiveBoxIcon'
 }, {
-  name: 'arrow-down-circle'
+  name: 'arrow-down-circle',
+  component: 'ArrowDownCircleIcon'
 }, {
-  name: 'arrow-down-left'
+  name: 'arrow-down-left',
+  component: 'ArrowDownLeftIcon'
 }, {
-  name: 'arrow-down-on-square-stack'
+  name: 'arrow-down-on-square-stack',
+  component: 'ArrowDownOnSquareStackIcon'
 }, {
-  name: 'arrow-down-on-square'
+  name: 'arrow-down-on-square',
+  component: 'ArrowDownOnSquareIcon'
 }, {
-  name: 'arrow-down-right'
+  name: 'arrow-down-right',
+  component: 'ArrowDownRightIcon'
 }, {
-  name: 'arrow-down-tray'
+  name: 'arrow-down-tray',
+  component: 'ArrowDownTrayIcon'
 }, {
-  name: 'arrow-down'
+  name: 'arrow-down',
+  component: 'ArrowDownIcon'
 }, {
-  name: 'arrow-left-circle'
+  name: 'arrow-left-circle',
+  component: 'ArrowLeftCircleIcon'
 }, {
-  name: 'arrow-left-on-rectangle'
+  name: 'arrow-left-on-rectangle',
+  component: 'ArrowLeftOnRectangleIcon'
 }, {
-  name: 'arrow-left'
+  name: 'arrow-left',
+  component: 'ArrowLeftIcon'
 }, {
-  name: 'arrow-long-down'
+  name: 'arrow-long-down',
+  component: 'ArrowLongDownIcon'
 }, {
-  name: 'arrow-long-left'
+  name: 'arrow-long-left',
+  component: 'ArrowLongLeftIcon'
 }, {
-  name: 'arrow-long-right'
+  name: 'arrow-long-right',
+  component: 'ArrowLongRightIcon'
 }, {
-  name: 'arrow-long-up'
+  name: 'arrow-long-up',
+  component: 'ArrowLongUpIcon'
 }, {
-  name: 'arrow-path-rounded-square'
+  name: 'arrow-path-rounded-square',
+  component: 'ArrowPathRoundedSquareIcon'
 }, {
-  name: 'arrow-path'
+  name: 'arrow-path',
+  component: 'ArrowPathIcon'
 }, {
-  name: 'arrow-right-circle'
+  name: 'arrow-right-circle',
+  component: 'ArrowRightCircleIcon'
 }, {
-  name: 'arrow-right-on-rectangle'
+  name: 'arrow-right-on-rectangle',
+  component: 'ArrowRightOnRectangleIcon'
 }, {
-  name: 'arrow-right'
+  name: 'arrow-right',
+  component: 'ArrowRightIcon'
 }, {
-  name: 'arrow-small-down'
+  name: 'arrow-small-down',
+  component: 'ArrowSmallDownIcon'
 }, {
-  name: 'arrow-small-left'
+  name: 'arrow-small-left',
+  component: 'ArrowSmallLeftIcon'
 }, {
-  name: 'arrow-small-right'
+  name: 'arrow-small-right',
+  component: 'ArrowSmallRightIcon'
 }, {
-  name: 'arrow-small-up'
+  name: 'arrow-small-up',
+  component: 'ArrowSmallUpIcon'
 }, {
-  name: 'arrow-top-right-on-square'
+  name: 'arrow-top-right-on-square',
+  component: 'ArrowTopRightOnSquareIcon'
 }, {
-  name: 'arrow-trending-down'
+  name: 'arrow-trending-down',
+  component: 'ArrowTrendingDownIcon'
 }, {
-  name: 'arrow-trending-up'
+  name: 'arrow-trending-up',
+  component: 'ArrowTrendingUpIcon'
 }, {
-  name: 'arrow-up-circle'
+  name: 'arrow-up-circle',
+  component: 'ArrowUpCircleIcon'
 }, {
-  name: 'arrow-up-left'
+  name: 'arrow-up-left',
+  component: 'ArrowUpLeftIcon'
 }, {
-  name: 'arrow-up-on-square-stack'
+  name: 'arrow-up-on-square-stack',
+  component: 'ArrowUpOnSquareStackIcon'
 }, {
-  name: 'arrow-up-on-square'
+  name: 'arrow-up-on-square',
+  component: 'ArrowUpOnSquareIcon'
 }, {
-  name: 'arrow-up-right'
+  name: 'arrow-up-right',
+  component: 'ArrowUpRightIcon'
 }, {
-  name: 'arrow-up-tray'
+  name: 'arrow-up-tray',
+  component: 'ArrowUpTrayIcon'
 }, {
-  name: 'arrow-up'
+  name: 'arrow-up',
+  component: 'ArrowUpIcon'
 }, {
-  name: 'arrow-uturn-down'
+  name: 'arrow-uturn-down',
+  component: 'ArrowUturnDownIcon'
 }, {
-  name: 'arrow-uturn-left'
+  name: 'arrow-uturn-left',
+  component: 'ArrowUturnLeftIcon'
 }, {
-  name: 'arrow-uturn-right'
+  name: 'arrow-uturn-right',
+  component: 'ArrowUturnRightIcon'
 }, {
-  name: 'arrow-uturn-up'
+  name: 'arrow-uturn-up',
+  component: 'ArrowUturnUpIcon'
 }, {
-  name: 'arrows-pointing-in'
+  name: 'arrows-pointing-in',
+  component: 'ArrowsPointingInIcon'
 }, {
-  name: 'arrows-pointing-out'
+  name: 'arrows-pointing-out',
+  component: 'ArrowsPointingOutIcon'
 }, {
-  name: 'arrows-right-left'
+  name: 'arrows-right-left',
+  component: 'ArrowsRightLeftIcon'
 }, {
-  name: 'arrows-up-down'
+  name: 'arrows-up-down',
+  component: 'ArrowsUpDownIcon'
 }, {
-  name: 'at-symbol'
+  name: 'at-symbol',
+  component: 'AtSymbolIcon'
 }, {
-  name: 'backspace'
+  name: 'backspace',
+  component: 'BackspaceIcon'
 }, {
-  name: 'backward'
+  name: 'backward',
+  component: 'BackwardIcon'
 }, {
-  name: 'banknotes'
+  name: 'banknotes',
+  component: 'BanknotesIcon'
 }, {
-  name: 'bars-2'
+  name: 'bars-2',
+  component: 'Bars2Icon'
 }, {
-  name: 'bars-3-bottom-left'
+  name: 'bars-3-bottom-left',
+  component: 'Bars3BottomLeftIcon'
 }, {
-  name: 'bars-3-bottom-right'
+  name: 'bars-3-bottom-right',
+  component: 'Bars3BottomRightIcon'
 }, {
-  name: 'bars-3-center-left'
+  name: 'bars-3-center-left',
+  component: 'Bars3CenterLeftIcon'
 }, {
-  name: 'bars-3'
+  name: 'bars-3',
+  component: 'Bars3Icon'
 }, {
-  name: 'bars-4'
+  name: 'bars-4',
+  component: 'Bars4Icon'
 }, {
-  name: 'bars-arrow-down'
+  name: 'bars-arrow-down',
+  component: 'BarsArrowDownIcon'
 }, {
-  name: 'bars-arrow-up'
+  name: 'bars-arrow-up',
+  component: 'BarsArrowUpIcon'
 }, {
-  name: 'battery-0'
+  name: 'battery-0',
+  component: 'Battery0Icon'
 }, {
-  name: 'battery-100'
+  name: 'battery-100',
+  component: 'Battery100Icon'
 }, {
-  name: 'battery-50'
+  name: 'battery-50',
+  component: 'Battery50Icon'
 }, {
-  name: 'beaker'
+  name: 'beaker',
+  component: 'BeakerIcon'
 }, {
-  name: 'bell-alert'
+  name: 'bell-alert',
+  component: 'BellAlertIcon'
 }, {
-  name: 'bell-slash'
+  name: 'bell-slash',
+  component: 'BellSlashIcon'
 }, {
-  name: 'bell-snooze'
+  name: 'bell-snooze',
+  component: 'BellSnoozeIcon'
 }, {
-  name: 'bell'
+  name: 'bell',
+  component: 'BellIcon'
 }, {
-  name: 'bolt-slash'
+  name: 'bolt-slash',
+  component: 'BoltSlashIcon'
 }, {
-  name: 'bolt'
+  name: 'bolt',
+  component: 'BoltIcon'
 }, {
-  name: 'book-open'
+  name: 'book-open',
+  component: 'BookOpenIcon'
 }, {
-  name: 'bookmark-slash'
+  name: 'bookmark-slash',
+  component: 'BookmarkSlashIcon'
 }, {
-  name: 'bookmark-square'
+  name: 'bookmark-square',
+  component: 'BookmarkSquareIcon'
 }, {
-  name: 'bookmark'
+  name: 'bookmark',
+  component: 'BookmarkIcon'
 }, {
-  name: 'briefcase'
+  name: 'briefcase',
+  component: 'BriefcaseIcon'
 }, {
-  name: 'bug-ant'
+  name: 'bug-ant',
+  component: 'BugAntIcon'
 }, {
-  name: 'building-library'
+  name: 'building-library',
+  component: 'BuildingLibraryIcon'
 }, {
-  name: 'building-office-2'
+  name: 'building-office-2',
+  component: 'BuildingOffice2Icon'
 }, {
-  name: 'building-office'
+  name: 'building-office',
+  component: 'BuildingOfficeIcon'
 }, {
-  name: 'building-storefront'
+  name: 'building-storefront',
+  component: 'BuildingStorefrontIcon'
 }, {
-  name: 'cake'
+  name: 'cake',
+  component: 'CakeIcon'
 }, {
-  name: 'calculator'
+  name: 'calculator',
+  component: 'CalculatorIcon'
 }, {
-  name: 'calendar-days'
+  name: 'calendar-days',
+  component: 'CalendarDaysIcon'
 }, {
-  name: 'calendar'
+  name: 'calendar',
+  component: 'CalendarIcon'
 }, {
-  name: 'camera'
+  name: 'camera',
+  component: 'CameraIcon'
 }, {
-  name: 'chart-bar-square'
+  name: 'chart-bar-square',
+  component: 'ChartBarSquareIcon'
 }, {
-  name: 'chart-bar'
+  name: 'chart-bar',
+  component: 'ChartBarIcon'
 }, {
-  name: 'chart-pie'
+  name: 'chart-pie',
+  component: 'ChartPieIcon'
 }, {
-  name: 'chat-bubble-bottom-center-text'
+  name: 'chat-bubble-bottom-center-text',
+  component: 'ChatBubbleBottomCenterTextIcon'
 }, {
-  name: 'chat-bubble-bottom-center'
+  name: 'chat-bubble-bottom-center',
+  component: 'ChatBubbleBottomCenterIcon'
 }, {
-  name: 'chat-bubble-left-ellipsis'
+  name: 'chat-bubble-left-ellipsis',
+  component: 'ChatBubbleLeftEllipsisIcon'
 }, {
-  name: 'chat-bubble-left-right'
+  name: 'chat-bubble-left-right',
+  component: 'ChatBubbleLeftRightIcon'
 }, {
-  name: 'chat-bubble-left'
+  name: 'chat-bubble-left',
+  component: 'ChatBubbleLeftIcon'
 }, {
-  name: 'chat-bubble-oval-left-ellipsis'
+  name: 'chat-bubble-oval-left-ellipsis',
+  component: 'ChatBubbleOvalLeftEllipsisIcon'
 }, {
-  name: 'chat-bubble-oval-left'
+  name: 'chat-bubble-oval-left',
+  component: 'ChatBubbleOvalLeftIcon'
 }, {
-  name: 'check-badge'
+  name: 'check-badge',
+  component: 'CheckBadgeIcon'
 }, {
-  name: 'check-circle'
+  name: 'check-circle',
+  component: 'CheckCircleIcon'
 }, {
-  name: 'check'
+  name: 'check',
+  component: 'CheckIcon'
 }, {
-  name: 'chevron-double-down'
+  name: 'chevron-double-down',
+  component: 'ChevronDoubleDownIcon'
 }, {
-  name: 'chevron-double-left'
+  name: 'chevron-double-left',
+  component: 'ChevronDoubleLeftIcon'
 }, {
-  name: 'chevron-double-right'
+  name: 'chevron-double-right',
+  component: 'ChevronDoubleRightIcon'
 }, {
-  name: 'chevron-double-up'
+  name: 'chevron-double-up',
+  component: 'ChevronDoubleUpIcon'
 }, {
-  name: 'chevron-down'
+  name: 'chevron-down',
+  component: 'ChevronDownIcon'
 }, {
-  name: 'chevron-left'
+  name: 'chevron-left',
+  component: 'ChevronLeftIcon'
 }, {
-  name: 'chevron-right'
+  name: 'chevron-right',
+  component: 'ChevronRightIcon'
 }, {
-  name: 'chevron-up-down'
+  name: 'chevron-up-down',
+  component: 'ChevronUpDownIcon'
 }, {
-  name: 'chevron-up'
+  name: 'chevron-up',
+  component: 'ChevronUpIcon'
 }, {
-  name: 'circle-stack'
+  name: 'circle-stack',
+  component: 'CircleStackIcon'
 }, {
-  name: 'clipboard-document-check'
+  name: 'clipboard-document-check',
+  component: 'ClipboardDocumentCheckIcon'
 }, {
-  name: 'clipboard-document-list'
+  name: 'clipboard-document-list',
+  component: 'ClipboardDocumentListIcon'
 }, {
-  name: 'clipboard-document'
+  name: 'clipboard-document',
+  component: 'ClipboardDocumentIcon'
 }, {
-  name: 'clipboard'
+  name: 'clipboard',
+  component: 'ClipboardIcon'
 }, {
-  name: 'clock'
+  name: 'clock',
+  component: 'ClockIcon'
 }, {
-  name: 'cloud-arrow-down'
+  name: 'cloud-arrow-down',
+  component: 'CloudArrowDownIcon'
 }, {
-  name: 'cloud-arrow-up'
+  name: 'cloud-arrow-up',
+  component: 'CloudArrowUpIcon'
 }, {
-  name: 'cloud'
+  name: 'cloud',
+  component: 'CloudIcon'
 }, {
-  name: 'code-bracket-square'
+  name: 'code-bracket-square',
+  component: 'CodeBracketSquareIcon'
 }, {
-  name: 'code-bracket'
+  name: 'code-bracket',
+  component: 'CodeBracketIcon'
 }, {
-  name: 'cog-6-tooth'
+  name: 'cog-6-tooth',
+  component: 'Cog6ToothIcon'
 }, {
-  name: 'cog-8-tooth'
+  name: 'cog-8-tooth',
+  component: 'Cog8ToothIcon'
 }, {
-  name: 'cog'
+  name: 'cog',
+  component: 'CogIcon'
 }, {
-  name: 'command-line'
+  name: 'command-line',
+  component: 'CommandLineIcon'
 }, {
-  name: 'computer-desktop'
+  name: 'computer-desktop',
+  component: 'ComputerDesktopIcon'
 }, {
-  name: 'cpu-chip'
+  name: 'cpu-chip',
+  component: 'CpuChipIcon'
 }, {
-  name: 'credit-card'
+  name: 'credit-card',
+  component: 'CreditCardIcon'
 }, {
-  name: 'cube-transparent'
+  name: 'cube-transparent',
+  component: 'CubeTransparentIcon'
 }, {
-  name: 'cube'
+  name: 'cube',
+  component: 'CubeIcon'
 }, {
-  name: 'currency-bangladeshi'
+  name: 'currency-bangladeshi',
+  component: 'CurrencyBangladeshiIcon'
 }, {
-  name: 'currency-dollar'
+  name: 'currency-dollar',
+  component: 'CurrencyDollarIcon'
 }, {
-  name: 'currency-euro'
+  name: 'currency-euro',
+  component: 'CurrencyEuroIcon'
 }, {
-  name: 'currency-pound'
+  name: 'currency-pound',
+  component: 'CurrencyPoundIcon'
 }, {
-  name: 'currency-rupee'
+  name: 'currency-rupee',
+  component: 'CurrencyRupeeIcon'
 }, {
-  name: 'currency-yen'
+  name: 'currency-yen',
+  component: 'CurrencyYenIcon'
 }, {
-  name: 'cursor-arrow-rays'
+  name: 'cursor-arrow-rays',
+  component: 'CursorArrowRaysIcon'
 }, {
-  name: 'cursor-arrow-ripple'
+  name: 'cursor-arrow-ripple',
+  component: 'CursorArrowRippleIcon'
 }, {
-  name: 'device-phone-mobile'
+  name: 'device-phone-mobile',
+  component: 'DevicePhoneMobileIcon'
 }, {
-  name: 'device-tablet'
+  name: 'device-tablet',
+  component: 'DeviceTabletIcon'
 }, {
-  name: 'document-arrow-down'
+  name: 'document-arrow-down',
+  component: 'DocumentArrowDownIcon'
 }, {
-  name: 'document-arrow-up'
+  name: 'document-arrow-up',
+  component: 'DocumentArrowUpIcon'
 }, {
-  name: 'document-chart-bar'
+  name: 'document-chart-bar',
+  component: 'DocumentChartBarIcon'
 }, {
-  name: 'document-check'
+  name: 'document-check',
+  component: 'DocumentCheckIcon'
 }, {
-  name: 'document-duplicate'
+  name: 'document-duplicate',
+  component: 'DocumentDuplicateIcon'
 }, {
-  name: 'document-magnifying-glass'
+  name: 'document-magnifying-glass',
+  component: 'DocumentMagnifyingGlassIcon'
 }, {
-  name: 'document-minus'
+  name: 'document-minus',
+  component: 'DocumentMinusIcon'
 }, {
-  name: 'document-plus'
+  name: 'document-plus',
+  component: 'DocumentPlusIcon'
 }, {
-  name: 'document-text'
+  name: 'document-text',
+  component: 'DocumentTextIcon'
 }, {
-  name: 'document'
+  name: 'document',
+  component: 'DocumentIcon'
 }, {
-  name: 'ellipsis-horizontal-circle'
+  name: 'ellipsis-horizontal-circle',
+  component: 'EllipsisHorizontalCircleIcon'
 }, {
-  name: 'ellipsis-horizontal'
+  name: 'ellipsis-horizontal',
+  component: 'EllipsisHorizontalIcon'
 }, {
-  name: 'ellipsis-vertical'
+  name: 'ellipsis-vertical',
+  component: 'EllipsisVerticalIcon'
 }, {
-  name: 'envelope-open'
+  name: 'envelope-open',
+  component: 'EnvelopeOpenIcon'
 }, {
-  name: 'envelope'
+  name: 'envelope',
+  component: 'EnvelopeIcon'
 }, {
-  name: 'exclamation-circle'
+  name: 'exclamation-circle',
+  component: 'ExclamationCircleIcon'
 }, {
-  name: 'exclamation-triangle'
+  name: 'exclamation-triangle',
+  component: 'ExclamationTriangleIcon'
 }, {
-  name: 'eye-dropper'
+  name: 'eye-dropper',
+  component: 'EyeDropperIcon'
 }, {
-  name: 'eye-slash'
+  name: 'eye-slash',
+  component: 'EyeSlashIcon'
 }, {
-  name: 'eye'
+  name: 'eye',
+  component: 'EyeIcon'
 }, {
-  name: 'face-frown'
+  name: 'face-frown',
+  component: 'FaceFrownIcon'
 }, {
-  name: 'face-smile'
+  name: 'face-smile',
+  component: 'FaceSmileIcon'
 }, {
-  name: 'film'
+  name: 'film',
+  component: 'FilmIcon'
 }, {
-  name: 'finger-print'
+  name: 'finger-print',
+  component: 'FingerPrintIcon'
 }, {
-  name: 'fire'
+  name: 'fire',
+  component: 'FireIcon'
 }, {
-  name: 'flag'
+  name: 'flag',
+  component: 'FlagIcon'
 }, {
-  name: 'folder-arrow-down'
+  name: 'folder-arrow-down',
+  component: 'FolderArrowDownIcon'
 }, {
-  name: 'folder-minus'
+  name: 'folder-minus',
+  component: 'FolderMinusIcon'
 }, {
-  name: 'folder-open'
+  name: 'folder-open',
+  component: 'FolderOpenIcon'
 }, {
-  name: 'folder-plus'
+  name: 'folder-plus',
+  component: 'FolderPlusIcon'
 }, {
-  name: 'folder'
+  name: 'folder',
+  component: 'FolderIcon'
 }, {
-  name: 'forward'
+  name: 'forward',
+  component: 'ForwardIcon'
 }, {
-  name: 'funnel'
+  name: 'funnel',
+  component: 'FunnelIcon'
 }, {
-  name: 'gif'
+  name: 'gif',
+  component: 'GifIcon'
 }, {
-  name: 'gift-top'
+  name: 'gift-top',
+  component: 'GiftTopIcon'
 }, {
-  name: 'gift'
+  name: 'gift',
+  component: 'GiftIcon'
 }, {
-  name: 'globe-alt'
+  name: 'globe-alt',
+  component: 'GlobeAltIcon'
 }, {
-  name: 'globe-americas'
+  name: 'globe-americas',
+  component: 'GlobeAmericasIcon'
 }, {
-  name: 'globe-asia-australia'
+  name: 'globe-asia-australia',
+  component: 'GlobeAsiaAustraliaIcon'
 }, {
-  name: 'globe-europe-africa'
+  name: 'globe-europe-africa',
+  component: 'GlobeEuropeAfricaIcon'
 }, {
-  name: 'hand-raised'
+  name: 'hand-raised',
+  component: 'HandRaisedIcon'
 }, {
-  name: 'hand-thumb-down'
+  name: 'hand-thumb-down',
+  component: 'HandThumbDownIcon'
 }, {
-  name: 'hand-thumb-up'
+  name: 'hand-thumb-up',
+  component: 'HandThumbUpIcon'
 }, {
-  name: 'hashtag'
+  name: 'hashtag',
+  component: 'HashtagIcon'
 }, {
-  name: 'heart'
+  name: 'heart',
+  component: 'HeartIcon'
 }, {
-  name: 'home-modern'
+  name: 'home-modern',
+  component: 'HomeModernIcon'
 }, {
-  name: 'home'
+  name: 'home',
+  component: 'HomeIcon'
 }, {
-  name: 'identification'
+  name: 'identification',
+  component: 'IdentificationIcon'
 }, {
-  name: 'inbox-arrow-down'
+  name: 'inbox-arrow-down',
+  component: 'InboxArrowDownIcon'
 }, {
-  name: 'inbox-stack'
+  name: 'inbox-stack',
+  component: 'InboxStackIcon'
 }, {
-  name: 'inbox'
+  name: 'inbox',
+  component: 'InboxIcon'
 }, {
-  name: 'information-circle'
+  name: 'information-circle',
+  component: 'InformationCircleIcon'
 }, {
-  name: 'key'
+  name: 'key',
+  component: 'KeyIcon'
 }, {
-  name: 'language'
+  name: 'language',
+  component: 'LanguageIcon'
 }, {
-  name: 'lifebuoy'
+  name: 'lifebuoy',
+  component: 'LifebuoyIcon'
 }, {
-  name: 'light-bulb'
+  name: 'light-bulb',
+  component: 'LightBulbIcon'
 }, {
-  name: 'link'
+  name: 'link',
+  component: 'LinkIcon'
 }, {
-  name: 'list-bullet'
+  name: 'list-bullet',
+  component: 'ListBulletIcon'
 }, {
-  name: 'lock-closed'
+  name: 'lock-closed',
+  component: 'LockClosedIcon'
 }, {
-  name: 'lock-open'
+  name: 'lock-open',
+  component: 'LockOpenIcon'
 }, {
-  name: 'magnifying-glass-circle'
+  name: 'magnifying-glass-circle',
+  component: 'MagnifyingGlassCircleIcon'
 }, {
-  name: 'magnifying-glass-minus'
+  name: 'magnifying-glass-minus',
+  component: 'MagnifyingGlassMinusIcon'
 }, {
-  name: 'magnifying-glass-plus'
+  name: 'magnifying-glass-plus',
+  component: 'MagnifyingGlassPlusIcon'
 }, {
-  name: 'magnifying-glass'
+  name: 'magnifying-glass',
+  component: 'MagnifyingGlassIcon'
 }, {
-  name: 'map-pin'
+  name: 'map-pin',
+  component: 'MapPinIcon'
 }, {
-  name: 'map'
+  name: 'map',
+  component: 'MapIcon'
 }, {
-  name: 'megaphone'
+  name: 'megaphone',
+  component: 'MegaphoneIcon'
 }, {
-  name: 'microphone'
+  name: 'microphone',
+  component: 'MicrophoneIcon'
 }, {
-  name: 'minus-circle'
+  name: 'minus-circle',
+  component: 'MinusCircleIcon'
 }, {
-  name: 'minus-small'
+  name: 'minus-small',
+  component: 'MinusSmallIcon'
 }, {
-  name: 'minus'
+  name: 'minus',
+  component: 'MinusIcon'
 }, {
-  name: 'moon'
+  name: 'moon',
+  component: 'MoonIcon'
 }, {
-  name: 'musical-note'
+  name: 'musical-note',
+  component: 'MusicalNoteIcon'
 }, {
-  name: 'newspaper'
+  name: 'newspaper',
+  component: 'NewspaperIcon'
 }, {
-  name: 'no-symbol'
+  name: 'no-symbol',
+  component: 'NoSymbolIcon'
 }, {
-  name: 'paint-brush'
+  name: 'paint-brush',
+  component: 'PaintBrushIcon'
 }, {
-  name: 'paper-airplane'
+  name: 'paper-airplane',
+  component: 'PaperAirplaneIcon'
 }, {
-  name: 'paper-clip'
+  name: 'paper-clip',
+  component: 'PaperClipIcon'
 }, {
-  name: 'pause-circle'
+  name: 'pause-circle',
+  component: 'PauseCircleIcon'
 }, {
-  name: 'pause'
+  name: 'pause',
+  component: 'PauseIcon'
 }, {
-  name: 'pencil-square'
+  name: 'pencil-square',
+  component: 'PencilSquareIcon'
 }, {
-  name: 'pencil'
+  name: 'pencil',
+  component: 'PencilIcon'
 }, {
-  name: 'phone-arrow-down-left'
+  name: 'phone-arrow-down-left',
+  component: 'PhoneArrowDownLeftIcon'
 }, {
-  name: 'phone-arrow-up-right'
+  name: 'phone-arrow-up-right',
+  component: 'PhoneArrowUpRightIcon'
 }, {
-  name: 'phone-x-mark'
+  name: 'phone-x-mark',
+  component: 'PhoneXMarkIcon'
 }, {
-  name: 'phone'
+  name: 'phone',
+  component: 'PhoneIcon'
 }, {
-  name: 'photo'
+  name: 'photo',
+  component: 'PhotoIcon'
 }, {
-  name: 'play-circle'
+  name: 'play-circle',
+  component: 'PlayCircleIcon'
 }, {
-  name: 'play-pause'
+  name: 'play-pause',
+  component: 'PlayPauseIcon'
 }, {
-  name: 'play'
+  name: 'play',
+  component: 'PlayIcon'
 }, {
-  name: 'plus-circle'
+  name: 'plus-circle',
+  component: 'PlusCircleIcon'
 }, {
-  name: 'plus-small'
+  name: 'plus-small',
+  component: 'PlusSmallIcon'
 }, {
-  name: 'plus'
+  name: 'plus',
+  component: 'PlusIcon'
 }, {
-  name: 'power'
+  name: 'power',
+  component: 'PowerIcon'
 }, {
-  name: 'presentation-chart-bar'
+  name: 'presentation-chart-bar',
+  component: 'PresentationChartBarIcon'
 }, {
-  name: 'presentation-chart-line'
+  name: 'presentation-chart-line',
+  component: 'PresentationChartLineIcon'
 }, {
-  name: 'printer'
+  name: 'printer',
+  component: 'PrinterIcon'
 }, {
-  name: 'puzzle-piece'
+  name: 'puzzle-piece',
+  component: 'PuzzlePieceIcon'
 }, {
-  name: 'qr-code'
+  name: 'qr-code',
+  component: 'QrCodeIcon'
 }, {
-  name: 'question-mark-circle'
+  name: 'question-mark-circle',
+  component: 'QuestionMarkCircleIcon'
 }, {
-  name: 'queue-list'
+  name: 'queue-list',
+  component: 'QueueListIcon'
 }, {
-  name: 'radio'
+  name: 'radio',
+  component: 'RadioIcon'
 }, {
-  name: 'receipt-percent'
+  name: 'receipt-percent',
+  component: 'ReceiptPercentIcon'
 }, {
-  name: 'receipt-refund'
+  name: 'receipt-refund',
+  component: 'ReceiptRefundIcon'
 }, {
-  name: 'rectangle-group'
+  name: 'rectangle-group',
+  component: 'RectangleGroupIcon'
 }, {
-  name: 'rectangle-stack'
+  name: 'rectangle-stack',
+  component: 'RectangleStackIcon'
 }, {
-  name: 'rocket-launch'
+  name: 'rocket-launch',
+  component: 'RocketLaunchIcon'
 }, {
-  name: 'rss'
+  name: 'rss',
+  component: 'RssIcon'
 }, {
-  name: 'scale'
+  name: 'scale',
+  component: 'ScaleIcon'
 }, {
-  name: 'scissors'
+  name: 'scissors',
+  component: 'ScissorsIcon'
 }, {
-  name: 'server-stack'
+  name: 'server-stack',
+  component: 'ServerStackIcon'
 }, {
-  name: 'server'
+  name: 'server',
+  component: 'ServerIcon'
 }, {
-  name: 'share'
+  name: 'share',
+  component: 'ShareIcon'
 }, {
-  name: 'shield-check'
+  name: 'shield-check',
+  component: 'ShieldCheckIcon'
 }, {
-  name: 'shield-exclamation'
+  name: 'shield-exclamation',
+  component: 'ShieldExclamationIcon'
 }, {
-  name: 'shopping-bag'
+  name: 'shopping-bag',
+  component: 'ShoppingBagIcon'
 }, {
-  name: 'shopping-cart'
+  name: 'shopping-cart',
+  component: 'ShoppingCartIcon'
 }, {
-  name: 'signal-slash'
+  name: 'signal-slash',
+  component: 'SignalSlashIcon'
 }, {
-  name: 'signal'
+  name: 'signal',
+  component: 'SignalIcon'
 }, {
-  name: 'sparkles'
+  name: 'sparkles',
+  component: 'SparklesIcon'
 }, {
-  name: 'speaker-wave'
+  name: 'speaker-wave',
+  component: 'SpeakerWaveIcon'
 }, {
-  name: 'speaker-x-mark'
+  name: 'speaker-x-mark',
+  component: 'SpeakerXMarkIcon'
 }, {
-  name: 'square-2-stack'
+  name: 'square-2-stack',
+  component: 'Square2StackIcon'
 }, {
   name: 'square-3-stack-3d',
-  component: 'Square3Stack3D'
+  component: 'Square3Stack3DIcon'
 }, {
   name: 'squares-2x2',
-  component: 'Squares2X2'
+  component: 'Squares2X2Icon'
 }, {
-  name: 'squares-plus'
+  name: 'squares-plus',
+  component: 'SquaresPlusIcon'
 }, {
-  name: 'star'
+  name: 'star',
+  component: 'StarIcon'
 }, {
-  name: 'stop-circle'
+  name: 'stop-circle',
+  component: 'StopCircleIcon'
 }, {
-  name: 'stop'
+  name: 'stop',
+  component: 'StopIcon'
 }, {
-  name: 'sun'
+  name: 'sun',
+  component: 'SunIcon'
 }, {
-  name: 'swatch'
+  name: 'swatch',
+  component: 'SwatchIcon'
 }, {
-  name: 'table-cells'
+  name: 'table-cells',
+  component: 'TableCellsIcon'
 }, {
-  name: 'tag'
+  name: 'tag',
+  component: 'TagIcon'
 }, {
-  name: 'ticket'
+  name: 'ticket',
+  component: 'TicketIcon'
 }, {
-  name: 'trash'
+  name: 'trash',
+  component: 'TrashIcon'
 }, {
-  name: 'trophy'
+  name: 'trophy',
+  component: 'TrophyIcon'
 }, {
-  name: 'truck'
+  name: 'truck',
+  component: 'TruckIcon'
 }, {
-  name: 'tv'
+  name: 'tv',
+  component: 'TvIcon'
 }, {
-  name: 'user-circle'
+  name: 'user-circle',
+  component: 'UserCircleIcon'
 }, {
-  name: 'user-group'
+  name: 'user-group',
+  component: 'UserGroupIcon'
 }, {
-  name: 'user-minus'
+  name: 'user-minus',
+  component: 'UserMinusIcon'
 }, {
-  name: 'user-plus'
+  name: 'user-plus',
+  component: 'UserPlusIcon'
 }, {
-  name: 'user'
+  name: 'user',
+  component: 'UserIcon'
 }, {
-  name: 'users'
+  name: 'users',
+  component: 'UsersIcon'
 }, {
-  name: 'variable'
+  name: 'variable',
+  component: 'VariableIcon'
 }, {
-  name: 'video-camera-slash'
+  name: 'video-camera-slash',
+  component: 'VideoCameraSlashIcon'
 }, {
-  name: 'video-camera'
+  name: 'video-camera',
+  component: 'VideoCameraIcon'
 }, {
-  name: 'view-columns'
+  name: 'view-columns',
+  component: 'ViewColumnsIcon'
 }, {
-  name: 'viewfinder-circle'
+  name: 'viewfinder-circle',
+  component: 'ViewfinderCircleIcon'
 }, {
-  name: 'wallet'
+  name: 'wallet',
+  component: 'WalletIcon'
 }, {
-  name: 'wifi'
+  name: 'wifi',
+  component: 'WifiIcon'
 }, {
-  name: 'window'
+  name: 'window',
+  component: 'WindowIcon'
 }, {
-  name: 'wrench-screwdriver'
+  name: 'wrench-screwdriver',
+  component: 'WrenchScrewdriverIcon'
 }, {
-  name: 'wrench'
+  name: 'wrench',
+  component: 'WrenchIcon'
 }, {
-  name: 'x-circle'
+  name: 'x-circle',
+  component: 'XCircleIcon'
 }, {
-  name: 'x-mark'
+  name: 'x-mark',
+  component: 'XMarkIcon'
 }];
 
 /***/ }),
@@ -903,6 +1247,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Icon */ "./src/Icon.js");
 
 /**
  * Retrieves the translation of text.
@@ -917,6 +1262,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
+
 
 
 /**
@@ -934,10 +1280,32 @@ function save(props) {
     className
   } = props;
   const {
-    content
+    content,
+    icon,
+    iconType,
+    iconWidth,
+    iconNextContent,
+    iconGap
   } = attributes;
-  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save();
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText.Content, {
+  const iconGapStyles = icon && iconGap !== '0' ? {
+    gap: iconGap
+  } : {};
+  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps.save({
+    className: iconNextContent && 'icon-next-to-content',
+    style: iconGapStyles
+  });
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", blockProps, icon && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-callout-box-icon__container",
+    style: {
+      width: `${iconWidth}px`,
+      height: `${iconWidth}px`
+    }
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    component: icon,
+    method: iconType,
+    width: iconWidth,
+    height: iconWidth
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText.Content, {
     tagName: "p",
     value: content
   }));
@@ -965,97 +1333,6 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./node_modules/uppercamelcase/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/uppercamelcase/index.js ***!
-  \**********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-
-const camelCase = __webpack_require__(/*! camelcase */ "./node_modules/uppercamelcase/node_modules/camelcase/index.js");
-
-module.exports = function () {
-	const cased = camelCase.apply(camelCase, arguments);
-	return cased.charAt(0).toUpperCase() + cased.slice(1);
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/uppercamelcase/node_modules/camelcase/index.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/uppercamelcase/node_modules/camelcase/index.js ***!
-  \*********************************************************************/
-/***/ ((module) => {
-
-
-
-function preserveCamelCase(str) {
-	let isLastCharLower = false;
-	let isLastCharUpper = false;
-	let isLastLastCharUpper = false;
-
-	for (let i = 0; i < str.length; i++) {
-		const c = str[i];
-
-		if (isLastCharLower && /[a-zA-Z]/.test(c) && c.toUpperCase() === c) {
-			str = str.substr(0, i) + '-' + str.substr(i);
-			isLastCharLower = false;
-			isLastLastCharUpper = isLastCharUpper;
-			isLastCharUpper = true;
-			i++;
-		} else if (isLastCharUpper && isLastLastCharUpper && /[a-zA-Z]/.test(c) && c.toLowerCase() === c) {
-			str = str.substr(0, i - 1) + '-' + str.substr(i - 1);
-			isLastLastCharUpper = isLastCharUpper;
-			isLastCharUpper = false;
-			isLastCharLower = true;
-		} else {
-			isLastCharLower = c.toLowerCase() === c;
-			isLastLastCharUpper = isLastCharUpper;
-			isLastCharUpper = c.toUpperCase() === c;
-		}
-	}
-
-	return str;
-}
-
-module.exports = function (str) {
-	if (arguments.length > 1) {
-		str = Array.from(arguments)
-			.map(x => x.trim())
-			.filter(x => x.length)
-			.join('-');
-	} else {
-		str = str.trim();
-	}
-
-	if (str.length === 0) {
-		return '';
-	}
-
-	if (str.length === 1) {
-		return str.toLowerCase();
-	}
-
-	if (/^[a-z0-9]+$/.test(str)) {
-		return str;
-	}
-
-	const hasUpperCase = str !== str.toLowerCase();
-
-	if (hasUpperCase) {
-		str = preserveCamelCase(str);
-	}
-
-	return str
-		.replace(/^[_.\- ]+/, '')
-		.toLowerCase()
-		.replace(/[_.\- ]+(\w|$)/g, (m, p1) => p1.toUpperCase());
-};
 
 
 /***/ }),

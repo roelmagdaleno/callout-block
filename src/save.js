@@ -15,6 +15,7 @@ import {
 	useBlockProps,
 	RichText,
 } from '@wordpress/block-editor';
+import Icon from "./Icon";
 
 /**
  * The save function defines the way in which the different attributes should
@@ -33,12 +34,39 @@ export default function save( props ) {
 
 	const {
 		content,
+		icon,
+		iconType,
+		iconWidth,
+		iconNextContent,
+		iconGap,
 	} = attributes;
 
-	const blockProps = useBlockProps.save();
+	const iconGapStyles = icon && iconGap !== '0' ? {
+		gap: iconGap
+	} : {};
+
+	const blockProps = useBlockProps.save( {
+		className: iconNextContent && 'icon-next-to-content',
+		style: iconGapStyles,
+	} );
 
 	return (
 		<div { ...blockProps }>
+			{
+				icon && (
+					<div
+						className="wp-callout-box-icon__container"
+						style={{ width: `${ iconWidth }px`, height: `${ iconWidth }px` }}
+					>
+						<Icon
+							component={ icon }
+							method={ iconType }
+							width={ iconWidth }
+							height={ iconWidth }
+						/>
+					</div>
+				)
+			}
 			<RichText.Content
 				tagName="p"
 				value={ content }

@@ -1,6 +1,5 @@
 import * as SolidIcons from '@heroicons/react/24/solid';
 import * as OutlineIcons from '@heroicons/react/24/outline';
-import upperCamelCase from 'uppercamelcase';
 
 export default function Icon( props ) {
     const methods = {
@@ -8,10 +7,11 @@ export default function Icon( props ) {
         outline: OutlineIcons
     };
 
-	const icon = props.icon;
-	const iconName = icon.component ? icon.component : upperCamelCase( icon.name );
-    const Component = `${ iconName }Icon`;
-    const Icon = methods[ props.method ][ Component ];
+    const Icon = methods[ props.method ][ props.component ];
+
+	if ( ! Icon ) {
+		return null;
+	}
 
     return (
         <Icon

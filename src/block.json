@@ -68,7 +68,23 @@
         },
         "icon": {
             "type": "string",
+            "default": ""
+        },
+        "iconType": {
+            "type": "string",
+            "default": "outline"
+        },
+        "iconWidth": {
+            "type": "integer",
+            "default": 30
+        },
+        "iconNextContent": {
+            "type": "boolean",
             "default": false
+        },
+        "iconGap": {
+            "type": "string",
+            "default": "0"
         }
     },
     "textdomain": "callout-box",

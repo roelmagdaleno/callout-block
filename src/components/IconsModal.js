@@ -17,7 +17,12 @@ import {
 	useState,
 } from '@wordpress/element';
 
-const gridIcons = ( icons, iconType ) => {
+const gridIcons = ( icons, iconType, props ) => {
+	const {
+		setOpen,
+		setAttributes,
+	} = props;
+
 	return (
 		<Grid
 			columns={ 8 }
@@ -31,9 +36,13 @@ const gridIcons = ( icons, iconType ) => {
 						className={ `wp-callout-box-icon-button` }
 						label={ icon.name }
 						title={ icon.name }
+						onClick={ () => {
+							setAttributes( { icon: icon.component, iconType } );
+							setOpen( false );
+						} }
 					>
 						<span className={ `wp-callout-box-icon ${ iconType }` }>
-							<Icon icon={ icon } method={ iconType } />
+							<Icon component={ icon.component } method={ iconType } />
 						</span>
 						<span className="wp-callout-box-icon-name">
 							{ icon.name }
@@ -49,6 +58,8 @@ export default function IconsModal( props ) {
 	const {
 		isOpen,
 		setOpen,
+		attributes,
+		setAttributes,
 	} = props;
 
 	if ( ! isOpen ) {
@@ -89,7 +100,7 @@ export default function IconsModal( props ) {
 					</div>
 				</FlexItem>
 				<FlexBlock style={{ overflowY: "scroll" }}>
-					{ gridIcons( icons, iconType ) }
+					{ gridIcons( icons, iconType, props ) }
 				</FlexBlock>
 			</Flex>
 		</Modal>

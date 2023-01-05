@@ -1,16 +1,5 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
 import { __ } from '@wordpress/i18n';
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
- */
 import {
 	BlockControls,
 	InspectorControls,
@@ -25,20 +14,13 @@ import {
 } from '@wordpress/element';
 
 import {
+	__experimentalNumberControl as NumberControl,
+	__experimentalUnitControl as UnitControl,
 	Button,
-	Modal,
 	PanelBody,
 	PanelRow,
-	SearchControl,
-	Flex,
-	FlexItem,
-	FlexBlock,
-	__experimentalGrid as Grid,
-	MenuGroup,
-	MenuItem,
+	ToggleControl,
 } from '@wordpress/components';
-
-import { heroicons } from "./icons";
 
 import Icon from "./Icon";
 
@@ -62,6 +44,10 @@ export function Edit( props ) {
 	const {
 		content,
 		icon,
+		iconType,
+		iconWidth,
+		iconNextContent,
+		iconGap,
 	} = attributes;
 
 	const [ isOpen, setOpen ] = useState( false );
@@ -72,33 +58,102 @@ export function Edit( props ) {
 				<PanelBody title={ __( 'Icon', 'callout-box' ) } initialOpen={ true }>
 					<p>{ __( 'Icons powered by', 'callout-box' ) } <a href="https://heroicons.com" target="_blank">heroicons</a>.</p>
 
-					<PanelRow className={ `callout-box-icon__panel-row` }>
-						<Button
-							variant="secondary"
-							onClick={ () => setOpen( true ) }
-						>
-							Select Icon
-						</Button>
-						<IconsModal
-							isOpen={ isOpen }
-							setOpen={ setOpen }
-						/>
-						{ icon && (
-							<Button variant="secondary">
+					<PanelRow>
+						<div className="wp-callout-box-setting-box">
+							<Button
+								variant="secondary"
+								onClick={ () => setOpen( true ) }
+							>
 								Select Icon
 							</Button>
-						) }
+							<IconsModal
+								isOpen={ isOpen }
+								setOpen={ setOpen }
+								attributes={ attributes }
+								setAttributes={ setAttributes }
+							/>
+							{
+								icon && (
+									<Button
+										variant="link"
+										style={{ marginLeft: "10px" }}
+										onClick={ () => setAttributes( { icon: '' } ) }
+									>
+										Clear
+									</Button>
+								)
+							}
+						</div>
+					</PanelRow>
+
+					<PanelRow>
+						<div className="wp-callout-box-setting-box">
+							<ToggleControl
+								label={ __( 'Next to the content', 'callout-box' ) }
+								checked={ iconNextContent }
+								disabled={ icon === '' }
+								onChange={ ( iconNextContent ) => setAttributes( { iconNextContent } ) }
+							/>
+						</div>
+					</PanelRow>
+
+					<PanelRow>
+						<div className="wp-callout-box-setting-box">
+							<NumberControl
+								label={ __( 'Width', 'callout-box' ) }
+								value={ iconWidth }
+								min={ 0 }
+								disabled={ icon === '' }
+								onChange={ ( iconWidth ) => setAttributes( { iconWidth } ) }
+							/>
+						</div>
+					</PanelRow>
+
+					<PanelRow>
+						<div className="wp-callout-box-setting-box">
+							<UnitControl
+								label={ __( 'Gap', 'callout-box' ) }
+								value={ iconGap }
+								disabled={ icon === '' }
+								min={ 0 }
+								onChange={ ( iconGap ) => setAttributes( { iconGap } ) }
+							/>
+						</div>
 					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
 		</>
 	);
 
+	const iconGapStyles = icon && iconGap !== '0' ? {
+		gap: iconGap
+	} : {};
+
 	return (
 		<Fragment>
 			{ inspectorControls }
-			<div { ...useBlockProps() }>
+			<div
+				{ ...useBlockProps( {
+					className: iconNextContent && 'icon-next-to-content',
+					style: iconGapStyles,
+				} ) }
+			>
 				{ <BlockControls /> }
+				{
+					icon && (
+						<div
+							className="wp-callout-box-icon__container"
+							style={{ width: `${ iconWidth }px`, height: `${ iconWidth }px` }}
+						>
+							<Icon
+								component={ icon }
+								method={ iconType }
+								width={ iconWidth }
+								height={ iconWidth }
+							/>
+						</div>
+					)
+				}
 				<RichText
 					onChange={ ( content ) => setAttributes( { content } ) }
 					placeholder="Type your content"
