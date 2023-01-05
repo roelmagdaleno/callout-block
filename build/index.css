@@ -24,8 +24,17 @@
   width: 90px;
 }
 
-.wp-callout-box-icon svg {
+.wp-callout-box-icon.outline svg {
   fill: none;
+}
+
+.wp-callout-box-icon-category .components-menu-item__item {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.wp-callout-box-icon-length {
+  opacity: 0.5;
 }
 
 /*# sourceMappingURL=index.css.map*/
