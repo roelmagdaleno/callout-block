@@ -4,6 +4,24 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-callout {
-	border: 1px dotted #f00;
+.wp-callout-box-icon-button {
+  color: #1e1e1e !important;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  padding: 8px !important;
+  white-space: unset !important;
+}
+
+.wp-callout-box-icon-name {
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 90px;
+}
+
+.wp-callout-box-icon svg {
+  fill: none;
 }

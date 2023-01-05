@@ -12,10 +12,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
 import {
-	__experimentalPanelColorGradientSettings as PanelColorGradientSettings,
-	__experimentalUseGradient as useGradient,
 	BlockControls,
-	ContrastChecker,
 	InspectorControls,
 	RichText,
 	useBlockProps,
@@ -24,14 +21,25 @@ import {
 
 import {
 	Fragment,
+	useState,
 } from '@wordpress/element';
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
+import {
+	Button,
+	Modal,
+	PanelBody,
+	PanelRow,
+	SearchControl,
+	Flex,
+	FlexItem,
+	FlexBlock,
+	__experimentalGrid as Grid,
+} from '@wordpress/components';
+
+import { heroicons } from "./icons";
+
+import Icon from "./Icon";
+
 import './editor.scss';
 
 /**
@@ -45,69 +53,80 @@ import './editor.scss';
 export function Edit( props ) {
 	const {
 		attributes,
-		backgroundColor,
-		iconColor,
 		setAttributes,
-		setBackgroundColor,
-		setIconColor,
-		setTextColor,
-		textColor,
 	} = props;
 
 	const {
-		backgroundColorValue,
 		content,
-		iconColorValue,
-		textColorValue,
+		icon,
 	} = attributes;
 
-	const colors = [
-		{
-			colorValue: textColor.color || textColorValue,
-			onColorChange: ( colorValue ) => {
-				setTextColor( colorValue );
-				setAttributes( { textColorValue: colorValue } );
-			},
-			label: __( 'Text color', 'callout-box' )
-		},
-		{
-			colorValue: iconColor.color || iconColorValue,
-			onColorChange: ( colorValue ) => {
-				setIconColor( colorValue );
-				setAttributes( { iconColorValue: colorValue } );
-			},
-			label: __( 'Icon color', 'callout-box' )
-		},
-		{
-			colorValue: backgroundColor.color || backgroundColorValue,
-			onColorChange: ( colorValue ) => {
-				setBackgroundColor( colorValue );
-				setAttributes( { backgroundColorValue: colorValue } )
-			},
-			label: __( 'Background color', 'callout-box' )
-		},
-	];
+	const [ isOpen, setOpen ] = useState( false );
+	const openModal = () => setOpen( true );
+	const closeModal = () => setOpen( false );
+
+	const gridIcons = (
+		<Grid
+			columns={ 8 }
+			gap={ 6 }
+		>
+			{ heroicons.map( ( icon ) => {
+				return (
+					<Button
+						key={ `icon-${ icon.name }` }
+						variant="tertiary"
+						className={ `wp-callout-box-icon-button` }
+						label={ icon.name }
+						title={ icon.name }
+					>
+						<span className="wp-callout-box-icon">
+							<Icon icon={ icon } method="outline" />
+						</span>
+						<span className="wp-callout-box-icon-name">
+							{ icon.name }
+						</span>
+					</Button>
+				);
+			} ) }
+		</Grid>
+	);
 
 	const inspectorControls = (
 		<>
 			<InspectorControls>
-				<div>
-					<PanelColorGradientSettings
-						title={ __( 'Color', 'callout-box' ) }
-						initialOpen={ true }
-						enableAlpha={ true }
-						settings={ colors }
-						__experimentalHasMultipleOrigins={ true }
-					>
-						<ContrastChecker
-							{ ...{
-								textColor: textColorValue,
-								backgroundColor: backgroundColorValue
-							} }
-							isLargeText={ false }
-						/>
-					</PanelColorGradientSettings>
-				</div>
+				<PanelBody title={ __( 'Icon', 'callout-box' ) } initialOpen={ true }>
+					<p>{ __( 'Icons powered by', 'callout-box' ) } <a href="https://heroicons.com" target="_blank">heroicons</a>.</p>
+
+					<PanelRow className={ `callout-box-icon__panel-row` }>
+						<Button
+							variant="secondary"
+							onClick={ openModal }
+						>
+							Select Icon
+						</Button>
+						{ isOpen && (
+							<Modal
+								title={ __( 'Callout Icon', 'callout-box' ) }
+								onRequestClose={ closeModal }
+								isFullScreen={ true }
+							>
+								<Flex style={{ height: "100%", alignItems: "unset" }}>
+									<FlexItem>
+										<SearchControl />
+									</FlexItem>
+									<FlexBlock style={{ padding: "1rem", overflowY: "scroll" }}>
+										{ gridIcons }
+									</FlexBlock>
+								</Flex>
+							</Modal>
+						) }
+						{ icon && (
+							<Button variant="secondary">
+								Select Icon
+							</Button>
+						) }
+					</PanelRow>
+				</PanelBody>
 			</InspectorControls>
 		</>
 	);
@@ -116,9 +135,7 @@ export function Edit( props ) {
 		<Fragment>
 			{ inspectorControls }
 			<div { ...useBlockProps() }>
-				{
-					<BlockControls />
-				}
+				{ <BlockControls /> }
 				<RichText
 					onChange={ ( content ) => setAttributes( { content } ) }
 					placeholder="Type your content"
@@ -131,9 +148,7 @@ export function Edit( props ) {
 }
 
 const colorAttributes = {
-	textColor: 'text-color',
 	iconColor: 'icon-color',
-	backgroundColor: 'background-color',
 };
 
 export default withColors( colorAttributes )( Edit );

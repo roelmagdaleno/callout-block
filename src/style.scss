@@ -5,8 +5,10 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-create-block-callout {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+.wp-block-roelmagdaleno-callout-box.has-background {
+  padding: clamp(1.5rem, 5vw, 2rem);
+}
+
+.wp-block-roelmagdaleno-callout-box p {
+  margin: 0;
 }

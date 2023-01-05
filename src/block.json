@@ -12,7 +12,44 @@
         "box"
     ],
     "supports": {
-        "html": false
+        "anchor": true,
+        "align": true,
+        "html": false,
+        "color": {
+            "background": true,
+            "enableContrastChecker": true,
+            "gradients": true,
+            "text": true
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "typography": {
+            "fontSize": true,
+            "lineHeight": true,
+            "__experimentalFontFamily": true,
+            "__experimentalTextDecoration": true,
+            "__experimentalFontStyle": true,
+            "__experimentalFontWeight": true,
+            "__experimentalLetterSpacing": true,
+            "__experimentalTextTransform": true,
+            "__experimentalDefaultControls": {
+                "fontSize": true
+            }
+        },
+        "__experimentalBorder": {
+            "color": true,
+            "radius": true,
+            "style": true,
+            "width": true,
+            "__experimentalDefaultControls": {
+                "color": true,
+                "radius": true,
+                "style": true,
+                "width": true
+            }
+        }
     },
     "attributes": {
         "content": {
@@ -20,21 +57,22 @@
             "source": "html",
             "selector": "p"
         },
-        "backgroundColor": {
-            "type": "string",
-            "default": false
+        "style": {
+            "type": "object",
+            "default": {
+                "color": {
+                    "background": "#E0F2FE",
+                    "text": "#075985"
+                }
+            }
         },
-        "textColor": {
-            "type": "string",
-            "default": false
-        },
-        "iconColor": {
+        "icon": {
             "type": "string",
             "default": false
         }
     },
     "textdomain": "callout-box",
     "editorScript": "file:./index.js",
-    "editorStyle": "file:./editor.css",
-    "style": "file:./style.css"
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css"
 }
