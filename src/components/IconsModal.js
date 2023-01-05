@@ -10,7 +10,12 @@ import {
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from "@wordpress/components";
+
 import Icon from "../Icon";
+
+import {
+	useState,
+} from '@wordpress/element';
 
 const gridIcons = ( icons, iconType ) => {
 	return (
@@ -44,12 +49,19 @@ export default function IconsModal( props ) {
 	const {
 		isOpen,
 		setOpen,
-		iconType,
-		setIconType,
 	} = props;
 
 	if ( ! isOpen ) {
 		return null;
+	}
+
+	const [ iconType, setIconType ] = useState( 'outline' );
+	const [ searchInput, setSearchInput ] = useState( '' );
+
+	let icons = heroicons;
+
+	if ( searchInput ) {
+		icons = icons.filter( ( icon ) => icon.name.includes( searchInput.toLowerCase() ) );
 	}
 
 	return (
@@ -60,7 +72,10 @@ export default function IconsModal( props ) {
 		>
 			<Flex style={{ height: "100%", alignItems: "unset" }}>
 				<FlexItem style={{ width: "200px" }}>
-					<SearchControl />
+					<SearchControl
+						value={ searchInput }
+						onChange={ setSearchInput }
+					/>
 					<div style={{ marginTop: "1rem" }}>
 						<ToggleGroupControl
 							label="Type"
@@ -74,7 +89,7 @@ export default function IconsModal( props ) {
 					</div>
 				</FlexItem>
 				<FlexBlock style={{ overflowY: "scroll" }}>
-					{ gridIcons( heroicons, iconType ) }
+					{ gridIcons( icons, iconType ) }
 				</FlexBlock>
 			</Flex>
 		</Modal>

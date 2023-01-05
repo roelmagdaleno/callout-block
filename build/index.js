@@ -63,6 +63,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 const gridIcons = (icons, iconType) => {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalGrid, {
     columns: 8,
@@ -87,12 +88,16 @@ const gridIcons = (icons, iconType) => {
 function IconsModal(props) {
   const {
     isOpen,
-    setOpen,
-    iconType,
-    setIconType
+    setOpen
   } = props;
   if (!isOpen) {
     return null;
+  }
+  const [iconType, setIconType] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('outline');
+  const [searchInput, setSearchInput] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  let icons = _icons__WEBPACK_IMPORTED_MODULE_1__.heroicons;
+  if (searchInput) {
+    icons = icons.filter(icon => icon.name.includes(searchInput.toLowerCase()));
   }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Modal, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Callout Icon', 'callout-box'),
@@ -107,7 +112,10 @@ function IconsModal(props) {
     style: {
       width: "200px"
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SearchControl, null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SearchControl, {
+    value: searchInput,
+    onChange: setSearchInput
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
       marginTop: "1rem"
     }
@@ -126,7 +134,7 @@ function IconsModal(props) {
     style: {
       overflowY: "scroll"
     }
-  }, gridIcons(_icons__WEBPACK_IMPORTED_MODULE_1__.heroicons, iconType))));
+  }, gridIcons(icons, iconType))));
 }
 
 /***/ }),
@@ -194,7 +202,6 @@ function Edit(props) {
     icon
   } = attributes;
   const [isOpen, setOpen] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [iconType, setIconType] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('outline');
   const inspectorControls = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Icon', 'callout-box'),
     initialOpen: true
@@ -208,9 +215,7 @@ function Edit(props) {
     onClick: () => setOpen(true)
   }, "Select Icon"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_IconsModal__WEBPACK_IMPORTED_MODULE_7__["default"], {
     isOpen: isOpen,
-    setOpen: setOpen,
-    iconType: iconType,
-    setIconType: setIconType
+    setOpen: setOpen
   }), icon && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
     variant: "secondary"
   }, "Select Icon")))));

@@ -65,7 +65,6 @@ export function Edit( props ) {
 	} = attributes;
 
 	const [ isOpen, setOpen ] = useState( false );
-	const [ iconType, setIconType ] = useState( 'outline' );
 
 	const inspectorControls = (
 		<>
@@ -83,8 +82,6 @@ export function Edit( props ) {
 						<IconsModal
 							isOpen={ isOpen }
 							setOpen={ setOpen }
-							iconType={ iconType }
-							setIconType={ setIconType }
 						/>
 						{ icon && (
 							<Button variant="secondary">
