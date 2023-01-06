@@ -19,8 +19,9 @@ import {
 
 const gridIcons = ( icons, iconType, props ) => {
 	const {
-		setOpen,
+		attributes,
 		setAttributes,
+		setOpen,
 	} = props;
 
 	return (
@@ -35,7 +36,8 @@ const gridIcons = ( icons, iconType, props ) => {
 						variant="tertiary"
 						className={ `wp-callout-box-icon-button` }
 						label={ icon.name }
-						title={ icon.name }
+						showTooltip={ true }
+						isPressed={ attributes.icon === icon.component }
 						onClick={ () => {
 							setAttributes( { icon: icon.component, iconType } );
 							setOpen( false );
@@ -56,17 +58,16 @@ const gridIcons = ( icons, iconType, props ) => {
 
 export default function IconsModal( props ) {
 	const {
+		attributes,
 		isOpen,
 		setOpen,
-		attributes,
-		setAttributes,
 	} = props;
 
 	if ( ! isOpen ) {
 		return null;
 	}
 
-	const [ iconType, setIconType ] = useState( 'outline' );
+	const [ iconType, setIconType ] = useState( attributes.iconType );
 	const [ searchInput, setSearchInput ] = useState( '' );
 
 	let icons = heroicons;
@@ -97,6 +98,9 @@ export default function IconsModal( props ) {
 							<ToggleGroupControlOption value="outline" label="Outline" />
 							<ToggleGroupControlOption value="solid" label="Solid" />
 						</ToggleGroupControl>
+					</div>
+					<div style={{ marginTop: "1rem" }}>
+						<p>{ __( 'Icons powered by', 'callout-box' ) } <a href="https://heroicons.com" target="_blank">heroicons</a>.</p>
 					</div>
 				</FlexItem>
 				<FlexBlock style={{ overflowY: "scroll" }}>

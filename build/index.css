@@ -16,6 +16,12 @@
   white-space: unset !important;
 }
 
+.wp-callout-box-icon-button.is-pressed,
+.wp-callout-box-icon-button.is-pressed:hover:not(:disabled) {
+  background: #007cba;
+  color: white !important;
+}
+
 .wp-callout-box-icon-name {
   margin-top: 10px;
   overflow: hidden;

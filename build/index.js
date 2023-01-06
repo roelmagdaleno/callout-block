@@ -63,8 +63,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const gridIcons = (icons, iconType, props) => {
   const {
-    setOpen,
-    setAttributes
+    attributes,
+    setAttributes,
+    setOpen
   } = props;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalGrid, {
     columns: 8,
@@ -75,7 +76,8 @@ const gridIcons = (icons, iconType, props) => {
       variant: "tertiary",
       className: `wp-callout-box-icon-button`,
       label: icon.name,
-      title: icon.name,
+      showTooltip: true,
+      isPressed: attributes.icon === icon.component,
       onClick: () => {
         setAttributes({
           icon: icon.component,
@@ -95,15 +97,14 @@ const gridIcons = (icons, iconType, props) => {
 };
 function IconsModal(props) {
   const {
-    isOpen,
-    setOpen,
     attributes,
-    setAttributes
+    isOpen,
+    setOpen
   } = props;
   if (!isOpen) {
     return null;
   }
-  const [iconType, setIconType] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('outline');
+  const [iconType, setIconType] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(attributes.iconType);
   const [searchInput, setSearchInput] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)('');
   let icons = _icons__WEBPACK_IMPORTED_MODULE_1__.heroicons;
   if (searchInput) {
@@ -140,7 +141,14 @@ function IconsModal(props) {
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.__experimentalToggleGroupControlOption, {
     value: "solid",
     label: "Solid"
-  })))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.FlexBlock, {
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      marginTop: "1rem"
+    }
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Icons powered by', 'callout-box'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: "https://heroicons.com",
+    target: "_blank"
+  }, "heroicons"), "."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.FlexBlock, {
     style: {
       overflowY: "scroll"
     }

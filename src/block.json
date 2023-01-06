@@ -19,6 +19,7 @@
             "background": true,
             "enableContrastChecker": true,
             "gradients": true,
+            "link": true,
             "text": true
         },
         "spacing": {
@@ -61,8 +62,9 @@
             "type": "object",
             "default": {
                 "color": {
-                    "background": "#E0F2FE",
-                    "text": "#075985"
+                    "background": "#e0f2fe",
+                    "text": "#0369a1",
+                    "link": "#0c4a6e"
                 }
             }
         },
@@ -84,7 +86,7 @@
         },
         "iconGap": {
             "type": "string",
-            "default": "0"
+            "default": "15px"
         }
     },
     "textdomain": "callout-box",
