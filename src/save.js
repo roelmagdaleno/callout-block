@@ -1,20 +1,8 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
- */
 import {
 	useBlockProps,
-	RichText,
+	InnerBlocks,
 } from '@wordpress/block-editor';
+
 import Icon from "./Icon";
 
 /**
@@ -29,11 +17,9 @@ import Icon from "./Icon";
 export default function save( props ) {
 	const {
 		attributes,
-		className,
 	} = props;
 
 	const {
-		content,
 		icon,
 		iconColorValue,
 		iconGap,
@@ -77,10 +63,7 @@ export default function save( props ) {
 					</div>
 				)
 			}
-			<RichText.Content
-				tagName="p"
-				value={ content }
-			/>
+			<InnerBlocks.Content />
 		</div>
 	);
 }

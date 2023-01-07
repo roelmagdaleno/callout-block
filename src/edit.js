@@ -5,8 +5,8 @@ import {
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 	BlockControls,
 	ContrastChecker,
+	InnerBlocks,
 	InspectorControls,
-	RichText,
 	useBlockProps,
 	withColors,
 } from '@wordpress/block-editor';
@@ -26,8 +26,6 @@ import {
 } from '@wordpress/components';
 
 import Icon from "./Icon";
-
-import classNames from 'classnames';
 
 import IconsModal from "./components/IconsModal";
 
@@ -52,7 +50,6 @@ export function Edit( props ) {
 	} = props;
 
 	const {
-		content,
 		icon,
 		iconColorValue,
 		iconType,
@@ -208,12 +205,7 @@ export function Edit( props ) {
 						</div>
 					)
 				}
-				<RichText
-					onChange={ ( content ) => setAttributes( { content } ) }
-					placeholder="Type your content"
-					tagName="p"
-					value={ content }
-				/>
+				<InnerBlocks />
 			</div>
 		</Fragment>
 	);
