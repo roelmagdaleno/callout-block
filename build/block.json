@@ -72,6 +72,10 @@
       "type": "string",
       "default": ""
     },
+    "iconColorValue": {
+      "type": "string",
+      "default": "#0369a1"
+    },
     "iconType": {
       "type": "string",
       "default": "outline"

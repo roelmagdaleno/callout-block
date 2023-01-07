@@ -35,10 +35,11 @@ export default function save( props ) {
 	const {
 		content,
 		icon,
+		iconColorValue,
+		iconGap,
+		iconNextContent,
 		iconType,
 		iconWidth,
-		iconNextContent,
-		iconGap,
 	} = attributes;
 
 	const iconGapStyles = icon && iconGap !== '0' ? {
@@ -50,13 +51,22 @@ export default function save( props ) {
 		style: iconGapStyles,
 	} );
 
+	const iconStyles = icon ? {
+		width: `${ iconWidth }px`,
+		height: `${ iconWidth }px`,
+	} : {};
+
+	if ( iconColorValue ) {
+		iconStyles.color = iconColorValue;
+	}
+
 	return (
 		<div { ...blockProps }>
 			{
 				icon && (
 					<div
 						className="wp-callout-box-icon__container"
-						style={{ width: `${ iconWidth }px`, height: `${ iconWidth }px` }}
+						style={ iconStyles }
 					>
 						<Icon
 							component={ icon }

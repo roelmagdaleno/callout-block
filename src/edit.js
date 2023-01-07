@@ -1,7 +1,10 @@
 import { __ } from '@wordpress/i18n';
 
 import {
+	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 	BlockControls,
+	ContrastChecker,
 	InspectorControls,
 	RichText,
 	useBlockProps,
@@ -24,8 +27,11 @@ import {
 
 import Icon from "./Icon";
 
-import './editor.scss';
+import classNames from 'classnames';
+
 import IconsModal from "./components/IconsModal";
+
+import './editor.scss';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -38,12 +44,17 @@ import IconsModal from "./components/IconsModal";
 export function Edit( props ) {
 	const {
 		attributes,
+		backgroundColor,
+		clientId,
+		iconColor,
 		setAttributes,
+		setIconColor,
 	} = props;
 
 	const {
 		content,
 		icon,
+		iconColorValue,
 		iconType,
 		iconWidth,
 		iconNextContent,
@@ -51,6 +62,8 @@ export function Edit( props ) {
 	} = attributes;
 
 	const [ isOpen, setOpen ] = useState( false );
+
+	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
 	const inspectorControls = (
 		<>
@@ -122,12 +135,53 @@ export function Edit( props ) {
 					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
+			<InspectorControls __experimentalGroup="color">
+				<ColorGradientSettingsDropdown
+					__experimentalIsRenderedInSidebar
+					settings={ [
+						{
+							colorValue: iconColor.color || iconColorValue,
+							label: __( 'Icon', 'callout-box' ),
+							onColorChange: ( colorValue ) => {
+								setIconColor( colorValue );
+								setAttributes( { iconColorValue: colorValue } );
+							},
+							isShownByDefault: true,
+							resetAllFilter: () => {
+								setIconColor( undefined );
+								setAttributes( { iconColorValue: undefined } );
+							},
+						},
+					] }
+					__experimentalHasMultipleOrigins={ true }
+					panelId={ clientId }
+					{ ...colorGradientSettings }
+				/>
+				{ icon && (
+					<ContrastChecker
+						{ ...{
+							textColor: iconColorValue,
+							backgroundColor: backgroundColor.color,
+						} }
+						isLargeText={ false }
+					/>
+				) }
+			</InspectorControls>
 		</>
 	);
 
 	const iconGapStyles = icon && iconGap !== '0' ? {
 		gap: iconGap
 	} : {};
+
+	const iconStyles = icon ? {
+		width: `${ iconWidth }px`,
+		height: `${ iconWidth }px`,
+	} : {};
+
+	if ( iconColor.color || iconColorValue ) {
+		iconStyles.color = iconColor.color || iconColorValue;
+	}
 
 	return (
 		<Fragment>
@@ -143,7 +197,7 @@ export function Edit( props ) {
 					icon && (
 						<div
 							className="wp-callout-box-icon__container"
-							style={{ width: `${ iconWidth }px`, height: `${ iconWidth }px` }}
+							style={ iconStyles }
 						>
 							<Icon
 								component={ icon }
@@ -165,8 +219,9 @@ export function Edit( props ) {
 	);
 }
 
-const colorAttributes = {
+const iconColorAttributes = {
 	iconColor: 'icon-color',
+	backgroundColor: 'background-color',
 };
 
-export default withColors( colorAttributes )( Edit );
+export default withColors( iconColorAttributes )( Edit );
