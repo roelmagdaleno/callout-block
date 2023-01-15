@@ -6,7 +6,7 @@
   "title": "Callout Box",
   "category": "media",
   "icon": "welcome-write-blog",
-  "description": "Add a callout box to the WordPress block editor.",
+  "description": "Add a styled box for featured content in the WordPress block editor.",
   "keywords": [
     "callout",
     "box"
@@ -24,7 +24,17 @@
     },
     "spacing": {
       "margin": true,
-      "padding": true
+      "padding": true,
+      "blockGap": [
+        "horizontal",
+        "vertical"
+      ],
+      "__experimentalSkipSerialization": [
+        "blockGap"
+      ],
+      "__experimentalDefaultControls": {
+        "blockGap": true
+      }
     },
     "typography": {
       "fontSize": true,
@@ -49,6 +59,14 @@
         "radius": true,
         "style": true,
         "width": true
+      }
+    },
+    "__experimentalLayout": {
+      "allowSwitching": false,
+      "allowInheriting": false,
+      "allowEditing": false,
+      "default": {
+        "type": "flex"
       }
     }
   },

@@ -1,9 +1,3 @@
-/**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
- */
-
 .wp-callout-box-icon-button {
   color: #1e1e1e !important;
   display: flex;
@@ -18,6 +12,11 @@
 .wp-callout-box-icon-button.is-pressed:hover:not(:disabled) {
   background: #007cba;
   color: white !important;
+}
+
+.wp-block-roelmagdaleno-callout-box.icon-next-to-content {
+  align-items: flex-start !important;
+  flex-wrap: nowrap !important;
 }
 
 .wp-callout-box-icon-name {

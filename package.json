@@ -1,7 +1,7 @@
 {
 	"name": "callout-box",
 	"version": "1.0.0",
-	"description": "Add a callout box to the WordPress block editor.",
+	"description": "Add a styled box for featured content in the WordPress block editor.",
 	"author": "Roel Magdaleno",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
@@ -22,8 +22,6 @@
 		"@wordpress/block-editor": "^11.1.0",
 		"@wordpress/components": "^23.1.0",
 		"@wordpress/element": "^5.1.0",
-		"@wordpress/i18n": "^4.24.0",
-		"classnames": "^2.3.2",
-		"uppercamelcase": "^3.0.0"
+		"@wordpress/i18n": "^4.24.0"
 	}
 }

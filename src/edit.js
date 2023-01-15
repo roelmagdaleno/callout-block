@@ -2,12 +2,13 @@ import { __ } from '@wordpress/i18n';
 
 import {
 	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+	__experimentalGetGapCSSValue as getGapCSSValue,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 	BlockControls,
 	ContrastChecker,
-	InnerBlocks,
 	InspectorControls,
 	useBlockProps,
+	useInnerBlocksProps,
 	withColors,
 } from '@wordpress/block-editor';
 
@@ -66,7 +67,7 @@ export function Edit( props ) {
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Icon', 'callout-box' ) } initialOpen={ true }>
-					<p>{ __( 'Icons powered by', 'callout-box' ) } <a href="https://heroicons.com" target="_blank">heroicons</a>.</p>
+					<p>{ __( 'Icons powered by', 'callout-box' ) } <a href="https://heroicons.com" target="_blank">Heroicons</a>.</p>
 
 					<PanelRow>
 						<div className="wp-callout-box-setting-box">
@@ -180,15 +181,25 @@ export function Edit( props ) {
 		iconStyles.color = iconColor.color || iconColorValue;
 	}
 
+	const blockProps = useBlockProps( {
+		className: iconNextContent && 'icon-next-to-content',
+		style: iconGapStyles,
+	} );
+
+	// Get the `gap` value from "Dimensions > Block Spacing"
+	const gapValue = getGapCSSValue( attributes.style?.spacing?.blockGap );
+
+	const innerBlocksProps = useInnerBlocksProps( {
+		className: 'wp-callout-box__inner-blocks',
+		style: {
+			gap: gapValue
+		}
+	} );
+
 	return (
 		<Fragment>
 			{ inspectorControls }
-			<div
-				{ ...useBlockProps( {
-					className: iconNextContent && 'icon-next-to-content',
-					style: iconGapStyles,
-				} ) }
-			>
+			<div { ...blockProps }>
 				{ <BlockControls /> }
 				{
 					icon && (
@@ -205,7 +216,7 @@ export function Edit( props ) {
 						</div>
 					)
 				}
-				<InnerBlocks />
+				<div { ...innerBlocksProps } />
 			</div>
 		</Fragment>
 	);

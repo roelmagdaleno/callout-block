@@ -223,7 +223,7 @@ function Edit(props) {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Icons powered by', 'callout-box'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("a", {
     href: "https://heroicons.com",
     target: "_blank"
-  }, "heroicons"), "."), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+  }, "Heroicons"), "."), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
     className: "wp-callout-box-setting-box"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
     variant: "secondary",
@@ -308,10 +308,20 @@ function Edit(props) {
   if (iconColor.color || iconColorValue) {
     iconStyles.color = iconColor.color || iconColorValue;
   }
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, inspectorControls, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)({
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useBlockProps)({
     className: iconNextContent && 'icon-next-to-content',
     style: iconGapStyles
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.BlockControls, null), icon && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
+  });
+
+  // Get the `gap` value from "Dimensions > Block Spacing"
+  const gapValue = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.__experimentalGetGapCSSValue)(attributes.style?.spacing?.blockGap);
+  const innerBlocksProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.useInnerBlocksProps)({
+    className: 'wp-callout-box__inner-blocks',
+    style: {
+      gap: gapValue
+    }
+  });
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, inspectorControls, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", blockProps, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.BlockControls, null), icon && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
     className: "wp-callout-box-icon__container",
     style: iconStyles
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_Icon__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -319,7 +329,7 @@ function Edit(props) {
     method: iconType,
     width: iconWidth,
     height: iconWidth
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InnerBlocks, null)));
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", innerBlocksProps)));
 }
 const iconColorAttributes = {
   iconColor: 'icon-color',
@@ -1318,6 +1328,9 @@ function save(props) {
     className: iconNextContent && 'icon-next-to-content',
     style: iconGapStyles
   });
+
+  // Get the `gap` value from "Dimensions > Block Spacing"
+  const gapValue = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.__experimentalGetGapCSSValue)(attributes.style?.spacing?.blockGap);
   const iconStyles = icon ? {
     width: `${iconWidth}px`,
     height: `${iconWidth}px`
@@ -1333,7 +1346,12 @@ function save(props) {
     method: iconType,
     width: iconWidth,
     height: iconWidth
-  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks.Content, null));
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-callout-box__inner-blocks",
+    style: {
+      gap: gapValue
+    }
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks.Content, null)));
 }
 
 /***/ }),

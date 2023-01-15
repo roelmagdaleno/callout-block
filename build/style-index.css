@@ -8,11 +8,17 @@
 }
 
 .wp-block-roelmagdaleno-callout-box.icon-next-to-content {
+  align-items: flex-start;
   flex-wrap: nowrap;
 }
 
-.wp-block-roelmagdaleno-callout-box p {
+.wp-callout-box__inner-blocks > * {
   margin: 0;
+}
+
+.wp-callout-box__inner-blocks {
+  display: flex;
+  flex-direction: column;
 }
 
 /*# sourceMappingURL=style-index.css.map*/

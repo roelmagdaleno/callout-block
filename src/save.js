@@ -1,6 +1,8 @@
 import {
-	useBlockProps,
+	__experimentalGetGapCSSValue as getGapCSSValue,
 	InnerBlocks,
+	useBlockProps,
+	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 
 import Icon from "./Icon";
@@ -37,6 +39,9 @@ export default function save( props ) {
 		style: iconGapStyles,
 	} );
 
+	// Get the `gap` value from "Dimensions > Block Spacing"
+	const gapValue = getGapCSSValue( attributes.style?.spacing?.blockGap );
+
 	const iconStyles = icon ? {
 		width: `${ iconWidth }px`,
 		height: `${ iconWidth }px`,
@@ -63,7 +68,9 @@ export default function save( props ) {
 					</div>
 				)
 			}
-			<InnerBlocks.Content />
+			<div className="wp-callout-box__inner-blocks" style={{ gap: gapValue }}>
+				<InnerBlocks.Content />
+			</div>
 		</div>
 	);
 }
