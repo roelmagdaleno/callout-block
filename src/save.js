@@ -2,7 +2,6 @@ import {
 	__experimentalGetGapCSSValue as getGapCSSValue,
 	InnerBlocks,
 	useBlockProps,
-	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 
 import Icon from "./Icon";
