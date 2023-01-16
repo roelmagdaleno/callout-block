@@ -1,10 +1,14 @@
+# Callout Box
+
 ![Callout Box](https://i.imgur.com/mKHn1R4.png)
 
 The **callout box** plugin registers a WordPress block that allows you to add a styled box for featured content in your Gutenberg block editor.
 
+## Inner Blocks
+
 The callout box supports inner blocks.
 
-## Features
+## Styling
 
 The callout box includes multiple features to style your callout box.
 
@@ -29,19 +33,7 @@ The background color supports solid and gradient colors.
 
 Add a padding and margin to the callout box. The dimensions can be edited globally or by side (left, top, right, and bottom).
 
-#### Block Spacing
-
-Inside **Dimensions** settings, you'll find a block spacing setting where you can select the `gap` between your inner blocks.
-
-### Icon
-
-*Icons powered by [Heroicons](https://heroicons.com).
-
-Insert an icon to the callout box and edit its color, size, and a gap between the icon and the content. It also supports whether the icon should be inserted above or next to the content.
-
-An icon from [Heroicons](https://heroicons.com) can be outlined or solid.
-
-If you don't want to use an icon from [Heroicons](https://heroicons.com) you can insert a custom SVG by pasting it in the text box
+Inside the **Dimensions** settings, you'll find a block spacing setting where you can select the gap between your inner blocks.
 
 ### Typography
 
@@ -53,6 +45,20 @@ Change the typography of a callout box:
 - Letter case
 - Letter spacing
 - Line height
+
+## Icon
+
+Icons powered by [Heroicons](https://heroicons.com).
+
+Insert an icon to the callout box and edit its color, size, and a gap between the icon and the content. It also supports whether the icon should be inserted above or next to the content.
+
+An icon from [Heroicons](https://heroicons.com) can be outlined or solid.
+
+### Custom Icons
+
+If you don't want to use an icon from [Heroicons](https://heroicons.com) you can insert a custom icon inside the callout box (as an inner block).
+
+As an inner block, you can use a Custom HTML block and paste your SVG or you can install the [Icon Block](https://github.com/ndiego/icon-block/) plugin and customize it.
 
 ## Requirements
 
