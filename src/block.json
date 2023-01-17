@@ -104,6 +104,10 @@
         "iconGap": {
             "type": "string",
             "default": "15px"
+        },
+        "usingCustomSVG": {
+            "type": "boolean",
+            "default": false
         }
     },
     "textdomain": "callout-box",
