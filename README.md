@@ -4,9 +4,13 @@
 
 The **callout box** plugin registers a WordPress block that allows you to add a styled box for featured content in your Gutenberg block editor.
 
-## Inner Blocks
+### Key Features
 
-The callout box supports inner blocks.
+- Includes 200+ icons powered by [Heroicons](https://heroicons.com)
+- Use custom icons (loaded from SVG string or link)
+- Design your callout box using inner blocks
+- Transform your callout box to a reusable block
+- Compatible with the Site Editor
 
 ## Styling
 
@@ -46,19 +50,39 @@ Change the typography of a callout box:
 - Letter spacing
 - Line height
 
+## Layout
+
+Change the layout orientation (horizontal, vertical), justification, and the alignment.
+
+The only thing that might change, when you manipulate the layout, is the icon position. That is due to the inner blocks container is full width.
+
 ## Icon
 
 Icons powered by [Heroicons](https://heroicons.com).
 
-Insert an icon to the callout box and edit its color, size, and a gap between the icon and the content. It also supports whether the icon should be inserted above or next to the content.
+Insert an icon, from the library, to the callout box and edit its color, size, and a gap between the icon and the content.
 
 An icon from [Heroicons](https://heroicons.com) can be outlined or solid.
 
-### Custom Icons
+## Custom Icons
 
-If you don't want to use an icon from [Heroicons](https://heroicons.com) you can insert a custom icon inside the callout box (as an inner block).
+If you don't want to use an icon from [Heroicons](https://heroicons.com) you can insert a custom icon by using an SVG string or by inserting a link inside the text box.
 
-As an inner block, you can use a Custom HTML block and paste your SVG or you can install the [Icon Block](https://github.com/ndiego/icon-block/) plugin and customize it.
+Also, you can insert a custom icon as an inner block, for example, install the [Icon Block](https://github.com/ndiego/icon-block/) plugin and customize it.
+
+### String
+
+Inside the text box, insert an SVG string and will render automatically to preview it. After that, insert it into the callout box.
+
+### Link
+
+Inside the text box, insert an SVG that lives inside an external link, for example:
+
+```text
+https://upload.wikimedia.org/wikipedia/commons/0/09/Wordpress-Logo.svg
+```
+
+The link extension should end with `.svg`, otherwise will throw an error. After that, insert it into the callout box.
 
 ## Requirements
 
