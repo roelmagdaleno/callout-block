@@ -17,11 +17,6 @@
   color: white !important;
 }
 
-.wp-block-roelmagdaleno-callout-box.icon-next-to-content {
-  align-items: flex-start !important;
-  flex-wrap: nowrap !important;
-}
-
 .wp-callout-box-icon-name {
   margin-top: 10px;
   overflow: hidden;
@@ -48,6 +43,8 @@
 }
 
 .wp-callout-box-tab-panel {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
@@ -62,12 +59,46 @@
 
 .wp-callout-box-tab-panel .components-tab-panel__tab-content {
   height: 100%;
-  padding-bottom: 1rem;
   padding-top: 1rem;
 }
 
 .wp-callout-box-modal .components-modal__content {
   overflow: unset;
+}
+
+.wp-callout-box__custom-icon-box {
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.wp-callout-box__custom-icon-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.wp-callout-box__custom-icon-notice {
+  background-color: #fee2e2 !important;
+  color: #7f1d1d;
+  margin: 1rem 0 0 0;
+}
+
+.wp-callout-box__custom-icon-textarea-wrapper > div,
+.wp-callout-box__custom-icon-textarea-wrapper > div div {
+  height: 100%;
+}
+
+.wp-callout-box__custom-icon-textarea-wrapper textarea {
+  height: 100%;
+  resize: none;
+}
+
+.wp-callout-box__inner-blocks .block-list-appender {
+  width: 100%;
 }
 
 /*# sourceMappingURL=index.css.map*/

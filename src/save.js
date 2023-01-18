@@ -1,68 +1,86 @@
+import classnames from "classnames";
+import Heroicon from "./components/Heroicon";
+import { Icon } from "@wordpress/components";
+import parseIcon from "./utils/parser-icon";
 import {
 	__experimentalGetGapCSSValue as getGapCSSValue,
 	InnerBlocks,
 	useBlockProps,
-} from '@wordpress/block-editor';
+} from "@wordpress/block-editor";
 
-import Icon from "./Icon";
-
-/**
- * The save function defines the way in which the different attributes should
- * be combined into the final markup, which is then serialized by the block
- * editor into `post_content`.
- *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#save
- *
- * @return {JSX.Element} Element to render.
- */
-export default function save( props ) {
+export default function Save( { attributes } ) {
 	const {
-		attributes,
-	} = props;
-
-	const {
+		customIcon,
 		icon,
 		iconColorValue,
 		iconGap,
-		iconNextContent,
 		iconType,
 		iconWidth,
+		usingCustomSVG,
 	} = attributes;
 
-	const iconGapStyles = icon && iconGap !== '0' ? {
-		gap: iconGap
-	} : {};
+	const isIconSelected = ( icon !== '' || customIcon !== '' );
+
+	const iconGapStyles = isIconSelected && iconGap !== '0'
+		? { gap: iconGap }
+		: {};
 
 	const blockProps = useBlockProps.save( {
-		className: iconNextContent && 'icon-next-to-content',
 		style: iconGapStyles,
 	} );
 
 	// Get the `gap` value from "Dimensions > Block Spacing"
 	const gapValue = getGapCSSValue( attributes.style?.spacing?.blockGap );
 
-	const iconStyles = icon ? {
-		width: `${ iconWidth }px`,
-		height: `${ iconWidth }px`,
-	} : {};
+	const iconStyles = isIconSelected
+		? { width: `${ iconWidth }px`, height: `${ iconWidth }px` }
+		: {};
 
 	if ( iconColorValue ) {
 		iconStyles.color = iconColorValue;
 	}
 
+	let iconToBeRender = '';
+
+	if ( isIconSelected ) {
+		/**
+		 * We can't call the `SVG` component here, so let's call `parseIcon`,
+		 * so can return a `JSX.Element`.
+		 *
+		 * I don't know why `SVG` component doesn't work in `save`
+		 * but it does in `edit`.
+		 *
+		 * @type {*|JSX.Element}
+		 *
+		 * @since 1.0.0
+		 */
+		iconToBeRender = usingCustomSVG
+			? parseIcon( customIcon )
+			: ( <Heroicon
+					component={ icon }
+					type={ iconType }
+					width={ iconWidth }
+					height={ iconWidth }
+				/>
+			);
+	}
+
+	const iconClasses = classnames( 'wp-callout-box-icon__container', {
+		'using-from-library': icon !== '',
+		'using-custom-svg': usingCustomSVG,
+	} );
+
 	return (
 		<div { ...blockProps }>
 			{
-				icon && (
+				isIconSelected && (
 					<div
-						className="wp-callout-box-icon__container"
+						className={ iconClasses }
 						style={ iconStyles }
 					>
 						<Icon
-							component={ icon }
-							method={ iconType }
-							width={ iconWidth }
-							height={ iconWidth }
+							icon={ iconToBeRender }
+							size={ iconWidth }
 						/>
 					</div>
 				)

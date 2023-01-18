@@ -64,9 +64,10 @@
     "__experimentalLayout": {
       "allowSwitching": false,
       "allowInheriting": false,
-      "allowEditing": false,
+      "allowEditing": true,
       "default": {
-        "type": "flex"
+        "type": "flex",
+        "orientation": "vertical"
       }
     }
   },
@@ -102,13 +103,15 @@
       "type": "integer",
       "default": 30
     },
-    "iconNextContent": {
-      "type": "boolean",
-      "default": false
-    },
     "iconGap": {
       "type": "string",
       "default": "15px"
+    },
+    "customIcon": {
+      "type": "string",
+      "source": "html",
+      "selector": ".wp-callout-box-icon__container.using-custom-svg",
+      "default": ""
     },
     "usingCustomSVG": {
       "type": "boolean",

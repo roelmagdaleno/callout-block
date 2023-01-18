@@ -1,5 +1,8 @@
 import { heroicons } from "../icons";
 import { __ } from "@wordpress/i18n";
+import { useState } from '@wordpress/element';
+import SVG from 'react-inlinesvg';
+import Heroicon from "./Heroicon";
 import {
 	__experimentalGrid as Grid, Button,
 	__experimentalToggleGroupControl as ToggleGroupControl,
@@ -7,20 +10,13 @@ import {
 	Flex,
 	FlexBlock,
 	FlexItem,
+	Icon,
 	Modal,
+	Notice,
 	SearchControl,
 	TabPanel,
 	TextareaControl,
-	Icon as RawSVG,
 } from "@wordpress/components";
-
-import Icon from "../Icon";
-
-import {
-	useState,
-} from '@wordpress/element';
-
-import parser from 'html-react-parser';
 
 const gridIcons = ( icons, iconType, props ) => {
 	const {
@@ -33,6 +29,7 @@ const gridIcons = ( icons, iconType, props ) => {
 		<Grid
 			columns={ 8 }
 			gap={ 6 }
+			style={{ height: "500px" }}
 		>
 			{ icons.map( ( icon ) => {
 				return (
@@ -49,7 +46,15 @@ const gridIcons = ( icons, iconType, props ) => {
 						} }
 					>
 						<span className={ `wp-callout-box-icon ${ iconType }` }>
-							<Icon component={ icon.component } method={ iconType } />
+							<Icon
+								icon={ () => (
+									<Heroicon
+										component={ icon.component }
+										type={ iconType }
+									/>
+								) }
+								size={ 30 }
+							/>
 						</span>
 						<span className="wp-callout-box-icon-name">
 							{ icon.name }
@@ -65,6 +70,7 @@ export default function IconsModal( props ) {
 	const {
 		attributes,
 		isOpen,
+		setAttributes,
 		setOpen,
 	} = props;
 
@@ -74,6 +80,8 @@ export default function IconsModal( props ) {
 
 	const [ iconType, setIconType ] = useState( attributes.iconType );
 	const [ searchInput, setSearchInput ] = useState( '' );
+	const [ customSVG, setCustomSVG ] = useState( attributes.customIcon || '' );
+	const [ isCustomSVGValid, setIsCustomSVGValid ] = useState( customSVG.trim() !== '' );
 
 	let icons = heroicons;
 
@@ -115,22 +123,76 @@ export default function IconsModal( props ) {
 		</Flex>
 	);
 
-	const [ customIcon, setCustomIcon ] = useState( '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="50" height="50"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zm32 224c0 17.7-14.3 32-32 32s-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32z"/></svg>' );
-
 	const customSVGTab = (
-		<>
-			<TextareaControl
-				label={ __( 'Custom Icon', 'callout-box' ) }
-				hideLabelFromVision={ true }
-				placeholder={ __( 'Insert your SVG content here', 'callout-box' ) }
-				value={ customIcon }
-				onChange={ setCustomIcon }
-			/>
-			<div>
-				<RawSVG icon={ parser( customIcon ) } size={ 150 } />
-			</div>
-			<Button variant="primary">Insert</Button>
-		</>
+		<Flex style={{ height: "100%", alignItems: "unset", gap: "30px" }}>
+			<FlexBlock className="wp-callout-box__custom-icon-textarea-wrapper">
+				<TextareaControl
+					label={ __( 'Custom Icon', 'callout-box' ) }
+					hideLabelFromVision={ true }
+					placeholder={ __( 'Insert the SVG from a string or link', 'callout-box' ) }
+					value={ customSVG }
+					onChange={ setCustomSVG }
+					rows={ 30 }
+				/>
+			</FlexBlock>
+			<FlexItem style={{ flex: "0.5" }}>
+				<div className="wp-callout-box__custom-icon-box">
+					<SVG
+						src={ customSVG }
+						width={ 150 }
+						height={ 150 }
+						onError={ () => setIsCustomSVGValid( false ) }
+						onLoad={ () => setIsCustomSVGValid( true ) }
+						preProcessor={ (code) => {
+							// It will use size from the block
+							code = code.replace(/width=".*?"/g, '');
+							code = code.replace(/height=".*?"/g, '');
+
+							setCustomSVG( code );
+
+							return code;
+						} }
+					/>
+				</div>
+				<div className="wp-callout-box__custom-icon-actions">
+					<Button
+						variant="primary"
+						disabled={ !isCustomSVGValid }
+						onClick={ () => {
+							setOpen( false );
+							setAttributes( {
+								icon: '', // Empty, so we can use custom icon.
+								customIcon: customSVG.trim(),
+								usingCustomSVG: true,
+							} );
+						} }
+					>
+						Insert
+					</Button>
+					<Button
+						variant="link"
+						disabled={ !isCustomSVGValid }
+						onClick={ () => {
+							setCustomSVG( '' );
+							setIsCustomSVGValid( false );
+						} }
+					>
+						Clear
+					</Button>
+				</div>
+				{
+					(customSVG !== '' && !isCustomSVGValid) && (
+						<Notice
+							status="error"
+							isDismissible={ false }
+							className="wp-callout-box__custom-icon-notice"
+						>
+							{ __( 'The inserted SVG is invalid.', 'callout-box' ) }
+						</Notice>
+					)
+				}
+			</FlexItem>
+		</Flex>
 	);
 
 	return (
@@ -143,6 +205,7 @@ export default function IconsModal( props ) {
 			<TabPanel
 				className="wp-callout-box-tab-panel"
 				activeClass="active-tab"
+				initialTabName={ attributes.usingCustomSVG ? 'custom-svg' : 'library' }
 				tabs={ [
 					{
 						name: 'library',

@@ -20,9 +20,12 @@
 	"dependencies": {
 		"@heroicons/react": "^2.0.13",
 		"@wordpress/block-editor": "^11.1.0",
+		"@wordpress/blocks": "^12.2.0",
 		"@wordpress/components": "^23.1.0",
 		"@wordpress/element": "^5.1.0",
 		"@wordpress/i18n": "^4.24.0",
-		"html-react-parser": "^3.0.7"
+		"classnames": "^2.3.2",
+		"html-react-parser": "^3.0.8",
+		"react-inlinesvg": "^3.0.1"
 	}
 }

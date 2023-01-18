@@ -1,12 +1,5 @@
 .wp-block-roelmagdaleno-callout-box.has-background {
-  display: flex;
-  flex-wrap: wrap;
   padding: clamp(1.5rem, 5vw, 2rem);
-}
-
-.wp-block-roelmagdaleno-callout-box.icon-next-to-content {
-  align-items: flex-start;
-  flex-wrap: nowrap;
 }
 
 .wp-callout-box__inner-blocks > * {
@@ -16,4 +9,12 @@
 .wp-callout-box__inner-blocks {
   display: flex;
   flex-direction: column;
+}
+
+.wp-callout-box-icon__container {
+  display: flex;
+}
+
+.wp-callout-box-icon__container.using-custom-svg svg {
+  fill: currentColor;
 }

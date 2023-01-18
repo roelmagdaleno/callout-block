@@ -1,23 +1,23 @@
 import * as SolidIcons from '@heroicons/react/24/solid';
 import * as OutlineIcons from '@heroicons/react/24/outline';
 
-export default function Icon( props ) {
+export default function Heroicon( props ) {
     const methods = {
         solid: SolidIcons,
         outline: OutlineIcons
     };
 
-    const Icon = methods[ props.method ][ props.component ];
+    const Heroicon = methods[ props.type ][ props.component ];
 
-	if ( ! Icon ) {
+	if ( ! Heroicon ) {
 		return null;
 	}
 
-    return (
-        <Icon
+	return (
+		<Heroicon
 			className="wp-callout-box-icon"
 			width={ props.width || 30 }
 			height={ props.height || 30 }
 		/>
-    );
+	);
 }
