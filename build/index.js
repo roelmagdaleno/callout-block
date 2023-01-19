@@ -1,6 +1,38 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@wordpress/icons/build-module/library/post-list.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@wordpress/icons/build-module/library/post-list.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/primitives */ "@wordpress/primitives");
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+const postList = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__.Path, {
+  d: "M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm.5 14c0 .3-.2.5-.5.5H6c-.3 0-.5-.2-.5-.5V6c0-.3.2-.5.5-.5h12c.3 0 .5.2.5.5v12zM7 11h2V9H7v2zm0 4h2v-2H7v2zm3-4h7V9h-7v2zm0 4h7v-2h-7v2z"
+}));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (postList);
+//# sourceMappingURL=post-list.js.map
+
+/***/ }),
+
 /***/ "./src/components/Heroicon.js":
 /*!************************************!*\
   !*** ./src/components/Heroicon.js ***!
@@ -74,7 +106,7 @@ const gridIcons = (icons, iconType, props) => {
     columns: 8,
     gap: 6,
     style: {
-      height: "500px"
+      height: '500px'
     }
   }, icons.map(icon => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
@@ -124,19 +156,19 @@ function IconsModal(props) {
   }
   const libraryTab = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Flex, {
     style: {
-      height: "100%",
-      alignItems: "unset"
+      height: '100%',
+      alignItems: 'unset'
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.FlexItem, {
     style: {
-      width: "200px"
+      width: '200px'
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SearchControl, {
     value: searchInput,
     onChange: setSearchInput
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
-      marginTop: "1rem"
+      marginTop: '1rem'
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalToggleGroupControl, {
     label: "Type",
@@ -151,21 +183,22 @@ function IconsModal(props) {
     label: "Solid"
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
-      marginTop: "1rem"
+      marginTop: '1rem'
     }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Icons powered by', 'callout-box'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Icons powered by', 'callout-box'), ' ', (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "https://heroicons.com",
-    target: "_blank"
+    target: "_blank",
+    rel: "noreferrer"
   }, "Heroicons"), "."))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.FlexBlock, {
     style: {
-      overflowY: "scroll"
+      overflowY: 'scroll'
     }
   }, gridIcons(icons, iconType, props)));
   const customSVGTab = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Flex, {
     style: {
-      height: "100%",
-      alignItems: "unset",
-      gap: "30px"
+      height: '100%',
+      alignItems: 'unset',
+      gap: '30px'
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.FlexBlock, {
     className: "wp-callout-box__custom-icon-textarea-wrapper"
@@ -178,7 +211,7 @@ function IconsModal(props) {
     rows: 30
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.FlexItem, {
     style: {
-      flex: "0.5"
+      flex: '0.5'
     }
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "wp-callout-box__custom-icon-box"
@@ -306,9 +339,10 @@ function Edit(props) {
   const inspectorControls = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_7__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Icon', 'callout-box'),
     initialOpen: true
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Icons powered by', 'callout-box'), " ", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("a", {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Icons powered by', 'callout-box'), ' ', (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("a", {
     href: "https://heroicons.com",
-    target: "_blank"
+    target: "_blank",
+    rel: "noreferrer"
   }, "Heroicons"), "."), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", {
     className: "wp-callout-box-setting-box"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.Button, {
@@ -322,7 +356,7 @@ function Edit(props) {
   }), isIconSelected && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__.Button, {
     variant: "link",
     style: {
-      marginLeft: "10px"
+      marginLeft: '10px'
     },
     onClick: () => {
       setAttributes({
@@ -1331,14 +1365,32 @@ const heroicons = [{
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/post-list.js");
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
 /* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./save */ "./src/save.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+
+
 
 
 
 
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)('roelmagdaleno/callout-box', {
+  icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"],
+  example: {
+    attributes: {
+      icon: 'FaceSmileIcon',
+      iconType: 'solid'
+    },
+    innerBlocks: [{
+      name: 'core/paragraph',
+      attributes: {
+        content: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'callout-box')
+      }
+    }]
+  },
   edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
   save: _save__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
@@ -1490,7 +1542,7 @@ function parseIcon(icon) {
         parent,
         type
       } = _ref;
-      if (type !== "tag" || !parent && name !== "svg" || !name) {
+      if (type !== 'tag' || !parent && name !== 'svg' || !name) {
         return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null);
       }
 
@@ -1514,13 +1566,13 @@ function parseIcon(icon) {
  */
 function parseStyles(stylesString) {
   let stylesObject = {};
-  if (typeof stylesString === "string") {
-    stylesObject = stylesString.split(";").reduce((allStyles, style) => {
-      const colonPosition = style.indexOf(":");
+  if (typeof stylesString === 'string') {
+    stylesObject = stylesString.split(';').reduce((allStyles, style) => {
+      const colonPosition = style.indexOf(':');
       if (colonPosition === -1) {
         return allStyles;
       }
-      const camelCaseProperty = style.substr(0, colonPosition).trim().replace(/^-ms-/, "ms-").replace(/-./g, c => c.substr(1).toUpperCase());
+      const camelCaseProperty = style.substr(0, colonPosition).trim().replace(/^-ms-/, 'ms-').replace(/-./g, c => c.substr(1).toUpperCase());
       const styleValue = style.substr(colonPosition + 1).trim();
       return styleValue ? {
         ...allStyles,
@@ -6394,6 +6446,17 @@ module.exports = window["wp"]["element"];
 
 "use strict";
 module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "@wordpress/primitives":
+/*!************************************!*\
+  !*** external ["wp","primitives"] ***!
+  \************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = window["wp"]["primitives"];
 
 /***/ }),
 

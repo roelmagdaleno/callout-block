@@ -1,120 +1,111 @@
 {
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
-    "name": "roelmagdaleno/callout-box",
-    "version": "1.0.0",
-    "title": "Callout Box",
-    "category": "media",
-    "icon": "welcome-write-blog",
-    "description": "Add a styled box for featured content in the WordPress block editor.",
-    "keywords": [
-        "callout",
-        "box"
-    ],
-    "supports": {
-        "anchor": true,
-        "align": true,
-        "html": false,
-        "color": {
-            "background": true,
-            "enableContrastChecker": true,
-            "gradients": true,
-            "link": true,
-            "text": true
-        },
-        "spacing": {
-            "margin": true,
-            "padding": true,
-            "blockGap": [ "horizontal", "vertical" ],
-            "__experimentalSkipSerialization": [ "blockGap" ],
-            "__experimentalDefaultControls": {
-                "blockGap": true
-            }
-        },
-        "typography": {
-            "fontSize": true,
-            "lineHeight": true,
-            "__experimentalFontFamily": true,
-            "__experimentalTextDecoration": true,
-            "__experimentalFontStyle": true,
-            "__experimentalFontWeight": true,
-            "__experimentalLetterSpacing": true,
-            "__experimentalTextTransform": true,
-            "__experimentalDefaultControls": {
-                "fontSize": true
-            }
-        },
-        "__experimentalBorder": {
-            "color": true,
-            "radius": true,
-            "style": true,
-            "width": true,
-            "__experimentalDefaultControls": {
-                "color": true,
-                "radius": true,
-                "style": true,
-                "width": true
-            }
-        },
-        "__experimentalLayout": {
-            "allowSwitching": false,
-            "allowInheriting": false,
-            "allowEditing": true,
-            "default": {
-                "type": "flex",
-                "orientation": "vertical"
-            }
-        }
-    },
-    "attributes": {
-        "content": {
-            "type": "string",
-            "source": "html",
-            "selector": "p"
-        },
-        "style": {
-            "type": "object",
-            "default": {
-                "color": {
-                    "background": "#e0f2fe",
-                    "text": "#0369a1",
-                    "link": "#0c4a6e"
-                }
-            }
-        },
-        "icon": {
-            "type": "string",
-            "default": ""
-        },
-        "iconColorValue": {
-            "type": "string",
-            "default": "#0369a1"
-        },
-        "iconType": {
-            "type": "string",
-            "default": "outline"
-        },
-        "iconWidth": {
-            "type": "integer",
-            "default": 30
-        },
-        "iconGap": {
-            "type": "string",
-            "default": "15px"
-        },
-        "customIcon": {
-            "type": "string",
-            "source": "html",
-            "selector": ".wp-callout-box-icon__container.using-custom-svg",
-            "default": ""
-        },
-        "usingCustomSVG": {
-            "type": "boolean",
-            "default": false
-        }
-    },
-    "textdomain": "callout-box",
-    "editorScript": "file:./index.js",
-    "editorStyle": "file:./index.css",
-    "style": "file:./style-index.css"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "roelmagdaleno/callout-box",
+	"version": "1.0.0",
+	"title": "Callout Box",
+	"category": "media",
+	"description": "Insert a styled box for featured content.",
+	"keywords": [ "callout", "box", "featured", "content", "styled" ],
+	"supports": {
+		"anchor": true,
+		"align": true,
+		"html": false,
+		"color": {
+			"background": true,
+			"enableContrastChecker": true,
+			"gradients": true,
+			"link": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"blockGap": [ "horizontal", "vertical" ],
+			"__experimentalSkipSerialization": [ "blockGap" ],
+			"__experimentalDefaultControls": {
+				"blockGap": true
+			}
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalFontStyle": true,
+			"__experimentalFontWeight": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalTextTransform": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		},
+		"__experimentalLayout": {
+			"allowSwitching": false,
+			"allowInheriting": false,
+			"allowEditing": true,
+			"default": {
+				"type": "flex",
+				"orientation": "vertical"
+			}
+		}
+	},
+	"attributes": {
+		"style": {
+			"type": "object",
+			"default": {
+				"color": {
+					"background": "#e0f2fe",
+					"text": "#0369a1",
+					"link": "#0c4a6e"
+				}
+			}
+		},
+		"icon": {
+			"type": "string",
+			"default": ""
+		},
+		"iconColorValue": {
+			"type": "string",
+			"default": "#0369a1"
+		},
+		"iconType": {
+			"type": "string",
+			"default": "outline"
+		},
+		"iconWidth": {
+			"type": "integer",
+			"default": 30
+		},
+		"iconGap": {
+			"type": "string",
+			"default": "15px"
+		},
+		"customIcon": {
+			"type": "string",
+			"source": "html",
+			"selector": ".wp-callout-box-icon__container.using-custom-svg",
+			"default": ""
+		},
+		"usingCustomSVG": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"textdomain": "callout-box",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css"
 }

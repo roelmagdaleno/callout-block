@@ -14,7 +14,7 @@
 .wp-callout-box-icon-button.is-pressed,
 .wp-callout-box-icon-button.is-pressed:hover:not(:disabled) {
   background: #007cba;
-  color: white !important;
+  color: #ffffff !important;
 }
 
 .wp-callout-box-icon-name {

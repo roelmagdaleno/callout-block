@@ -1,12 +1,12 @@
-import classnames from "classnames";
-import Heroicon from "./components/Heroicon";
-import { Icon } from "@wordpress/components";
-import parseIcon from "./utils/parser-icon";
+import classnames from 'classnames';
+import Heroicon from './components/Heroicon';
+import { Icon } from '@wordpress/components';
+import parseIcon from './utils/parser-icon';
 import {
 	__experimentalGetGapCSSValue as getGapCSSValue,
 	InnerBlocks,
 	useBlockProps,
-} from "@wordpress/block-editor";
+} from '@wordpress/block-editor';
 
 export default function Save( { attributes } ) {
 	const {
@@ -19,11 +19,10 @@ export default function Save( { attributes } ) {
 		usingCustomSVG,
 	} = attributes;
 
-	const isIconSelected = ( icon !== '' || customIcon !== '' );
+	const isIconSelected = icon !== '' || customIcon !== '';
 
-	const iconGapStyles = isIconSelected && iconGap !== '0'
-		? { gap: iconGap }
-		: {};
+	const iconGapStyles =
+		isIconSelected && iconGap !== '0' ? { gap: iconGap } : {};
 
 	const blockProps = useBlockProps.save( {
 		style: iconGapStyles,
@@ -54,15 +53,16 @@ export default function Save( { attributes } ) {
 		 *
 		 * @since 1.0.0
 		 */
-		iconToBeRender = usingCustomSVG
-			? parseIcon( customIcon )
-			: ( <Heroicon
-					component={ icon }
-					type={ iconType }
-					width={ iconWidth }
-					height={ iconWidth }
-				/>
-			);
+		iconToBeRender = usingCustomSVG ? (
+			parseIcon( customIcon )
+		) : (
+			<Heroicon
+				component={ icon }
+				type={ iconType }
+				width={ iconWidth }
+				height={ iconWidth }
+			/>
+		);
 	}
 
 	const iconClasses = classnames( 'wp-callout-box-icon__container', {
@@ -72,20 +72,15 @@ export default function Save( { attributes } ) {
 
 	return (
 		<div { ...blockProps }>
-			{
-				isIconSelected && (
-					<div
-						className={ iconClasses }
-						style={ iconStyles }
-					>
-						<Icon
-							icon={ iconToBeRender }
-							size={ iconWidth }
-						/>
-					</div>
-				)
-			}
-			<div className="wp-callout-box__inner-blocks" style={{ gap: gapValue }}>
+			{ isIconSelected && (
+				<div className={ iconClasses } style={ iconStyles }>
+					<Icon icon={ iconToBeRender } size={ iconWidth } />
+				</div>
+			) }
+			<div
+				className="wp-callout-box__inner-blocks"
+				style={ { gap: gapValue } }
+			>
 				<InnerBlocks.Content />
 			</div>
 		</div>

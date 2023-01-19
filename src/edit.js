@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
-import Heroicon from "./components/Heroicon";
-import IconsModal from "./components/IconsModal";
+import Heroicon from './components/Heroicon';
+import IconsModal from './components/IconsModal';
 import './editor.scss';
-import classnames from "classnames";
+import classnames from 'classnames';
 import {
 	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
 	__experimentalGetGapCSSValue as getGapCSSValue,
@@ -15,10 +15,7 @@ import {
 	withColors,
 } from '@wordpress/block-editor';
 
-import {
-	Fragment,
-	useState,
-} from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
 
 import {
 	__experimentalNumberControl as NumberControl,
@@ -29,7 +26,7 @@ import {
 	Icon,
 } from '@wordpress/components';
 
-import parseIcon from "./utils/parser-icon";
+import parseIcon from './utils/parser-icon';
 
 export function Edit( props ) {
 	const {
@@ -53,7 +50,7 @@ export function Edit( props ) {
 
 	const [ isOpen, setOpen ] = useState( false );
 
-	const isIconSelected = ( icon !== '' || customIcon !== '' );
+	const isIconSelected = icon !== '' || customIcon !== '';
 
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
@@ -64,7 +61,17 @@ export function Edit( props ) {
 					title={ __( 'Icon', 'callout-box' ) }
 					initialOpen={ true }
 				>
-					<p>{ __( 'Icons powered by', 'callout-box' ) } <a href="https://heroicons.com" target="_blank">Heroicons</a>.</p>
+					<p>
+						{ __( 'Icons powered by', 'callout-box' ) }{ ' ' }
+						<a
+							href="https://heroicons.com"
+							target="_blank"
+							rel="noreferrer"
+						>
+							Heroicons
+						</a>
+						.
+					</p>
 
 					<PanelRow>
 						<div className="wp-callout-box-setting-box">
@@ -80,23 +87,21 @@ export function Edit( props ) {
 								attributes={ attributes }
 								setAttributes={ setAttributes }
 							/>
-							{
-								isIconSelected && (
-									<Button
-										variant="link"
-										style={{ marginLeft: "10px" }}
-										onClick={ () => {
-											setAttributes( {
-												customIcon: '',
-												icon: '',
-												usingCustomSVG: false,
-											} )
-										} }
-									>
-										Clear
-									</Button>
-								)
-							}
+							{ isIconSelected && (
+								<Button
+									variant="link"
+									style={ { marginLeft: '10px' } }
+									onClick={ () => {
+										setAttributes( {
+											customIcon: '',
+											icon: '',
+											usingCustomSVG: false,
+										} );
+									} }
+								>
+									Clear
+								</Button>
+							) }
 						</div>
 					</PanelRow>
 
@@ -106,10 +111,12 @@ export function Edit( props ) {
 								label={ __( 'Width', 'callout-box' ) }
 								value={ iconWidth }
 								min={ 0 }
-								disabled={ !isIconSelected }
-								onChange={ ( iconWidth ) => setAttributes( {
-									iconWidth: parseInt( iconWidth )
-								} ) }
+								disabled={ ! isIconSelected }
+								onChange={ ( iconWidth ) =>
+									setAttributes( {
+										iconWidth: parseInt( iconWidth ),
+									} )
+								}
 							/>
 						</div>
 					</PanelRow>
@@ -119,9 +126,11 @@ export function Edit( props ) {
 							<UnitControl
 								label={ __( 'Gap', 'callout-box' ) }
 								value={ iconGap }
-								disabled={ !isIconSelected }
+								disabled={ ! isIconSelected }
 								min={ 0 }
-								onChange={ ( iconGap ) => setAttributes( { iconGap } ) }
+								onChange={ ( iconGap ) =>
+									setAttributes( { iconGap } )
+								}
 							/>
 						</div>
 					</PanelRow>
@@ -162,12 +171,11 @@ export function Edit( props ) {
 		</>
 	);
 
-	const iconGapStyles = isIconSelected && iconGap !== '0'
-		? { gap: iconGap }
-		: {};
+	const iconGapStyles =
+		isIconSelected && iconGap !== '0' ? { gap: iconGap } : {};
 
-	const iconStyles = isIconSelected ?
-		{ width: `${ iconWidth }px`, height: `${ iconWidth }px` }
+	const iconStyles = isIconSelected
+		? { width: `${ iconWidth }px`, height: `${ iconWidth }px` }
 		: {};
 
 	if ( iconColor.color || iconColorValue ) {
@@ -184,22 +192,23 @@ export function Edit( props ) {
 	const innerBlocksProps = useInnerBlocksProps( {
 		className: 'wp-callout-box__inner-blocks',
 		style: {
-			gap: gapValue
-		}
+			gap: gapValue,
+		},
 	} );
 
 	let iconToBeRender = '';
 
 	if ( isIconSelected ) {
-		iconToBeRender = usingCustomSVG
-			? parseIcon( customIcon )
-			: ( <Heroicon
-					component={ icon }
-					type={ iconType }
-					width={ iconWidth }
-					height={ iconWidth }
-				/>
-			);
+		iconToBeRender = usingCustomSVG ? (
+			parseIcon( customIcon )
+		) : (
+			<Heroicon
+				component={ icon }
+				type={ iconType }
+				width={ iconWidth }
+				height={ iconWidth }
+			/>
+		);
 	}
 
 	const iconClasses = classnames( 'wp-callout-box-icon__container', {
@@ -212,19 +221,11 @@ export function Edit( props ) {
 			{ inspectorControls }
 			<div { ...blockProps }>
 				{ <BlockControls /> }
-				{
-					isIconSelected && (
-						<div
-							className={ iconClasses }
-							style={ iconStyles }
-						>
-							<Icon
-								icon={ iconToBeRender }
-								size={ iconWidth }
-							/>
-						</div>
-					)
-				}
+				{ isIconSelected && (
+					<div className={ iconClasses } style={ iconStyles }>
+						<Icon icon={ iconToBeRender } size={ iconWidth } />
+					</div>
+				) }
 				<div { ...innerBlocksProps } />
 			</div>
 		</Fragment>

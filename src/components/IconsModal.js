@@ -1,10 +1,11 @@
-import { heroicons } from "../icons";
-import { __ } from "@wordpress/i18n";
+import { heroicons } from '../icons';
+import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import SVG from 'react-inlinesvg';
-import Heroicon from "./Heroicon";
+import Heroicon from './Heroicon';
 import {
-	__experimentalGrid as Grid, Button,
+	__experimentalGrid as Grid,
+	Button,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 	Flex,
@@ -16,21 +17,13 @@ import {
 	SearchControl,
 	TabPanel,
 	TextareaControl,
-} from "@wordpress/components";
+} from '@wordpress/components';
 
 const gridIcons = ( icons, iconType, props ) => {
-	const {
-		attributes,
-		setAttributes,
-		setOpen,
-	} = props;
+	const { attributes, setAttributes, setOpen } = props;
 
 	return (
-		<Grid
-			columns={ 8 }
-			gap={ 6 }
-			style={{ height: "500px" }}
-		>
+		<Grid columns={ 8 } gap={ 6 } style={ { height: '500px' } }>
 			{ icons.map( ( icon ) => {
 				return (
 					<Button
@@ -67,12 +60,7 @@ const gridIcons = ( icons, iconType, props ) => {
 };
 
 export default function IconsModal( props ) {
-	const {
-		attributes,
-		isOpen,
-		setAttributes,
-		setOpen,
-	} = props;
+	const { attributes, isOpen, setAttributes, setOpen } = props;
 
 	if ( ! isOpen ) {
 		return null;
@@ -81,22 +69,26 @@ export default function IconsModal( props ) {
 	const [ iconType, setIconType ] = useState( attributes.iconType );
 	const [ searchInput, setSearchInput ] = useState( '' );
 	const [ customSVG, setCustomSVG ] = useState( attributes.customIcon || '' );
-	const [ isCustomSVGValid, setIsCustomSVGValid ] = useState( customSVG.trim() !== '' );
+	const [ isCustomSVGValid, setIsCustomSVGValid ] = useState(
+		customSVG.trim() !== ''
+	);
 
 	let icons = heroicons;
 
 	if ( searchInput ) {
-		icons = icons.filter( ( icon ) => icon.name.includes( searchInput.toLowerCase() ) );
+		icons = icons.filter( ( icon ) =>
+			icon.name.includes( searchInput.toLowerCase() )
+		);
 	}
 
 	const libraryTab = (
-		<Flex style={{ height: "100%", alignItems: "unset" }}>
-			<FlexItem style={{ width: "200px" }}>
+		<Flex style={ { height: '100%', alignItems: 'unset' } }>
+			<FlexItem style={ { width: '200px' } }>
 				<SearchControl
 					value={ searchInput }
 					onChange={ setSearchInput }
 				/>
-				<div style={{ marginTop: "1rem" }}>
+				<div style={ { marginTop: '1rem' } }>
 					<ToggleGroupControl
 						label="Type"
 						value={ iconType }
@@ -107,35 +99,45 @@ export default function IconsModal( props ) {
 							value="outline"
 							label="Outline"
 						/>
-						<ToggleGroupControlOption
-							value="solid"
-							label="Solid"
-						/>
+						<ToggleGroupControlOption value="solid" label="Solid" />
 					</ToggleGroupControl>
 				</div>
-				<div style={{ marginTop: "1rem" }}>
-					<p>{ __( 'Icons powered by', 'callout-box' ) } <a href="https://heroicons.com" target="_blank">Heroicons</a>.</p>
+				<div style={ { marginTop: '1rem' } }>
+					<p>
+						{ __( 'Icons powered by', 'callout-box' ) }{ ' ' }
+						<a
+							href="https://heroicons.com"
+							target="_blank"
+							rel="noreferrer"
+						>
+							Heroicons
+						</a>
+						.
+					</p>
 				</div>
 			</FlexItem>
-			<FlexBlock style={{ overflowY: "scroll" }}>
+			<FlexBlock style={ { overflowY: 'scroll' } }>
 				{ gridIcons( icons, iconType, props ) }
 			</FlexBlock>
 		</Flex>
 	);
 
 	const customSVGTab = (
-		<Flex style={{ height: "100%", alignItems: "unset", gap: "30px" }}>
+		<Flex style={ { height: '100%', alignItems: 'unset', gap: '30px' } }>
 			<FlexBlock className="wp-callout-box__custom-icon-textarea-wrapper">
 				<TextareaControl
 					label={ __( 'Custom Icon', 'callout-box' ) }
 					hideLabelFromVision={ true }
-					placeholder={ __( 'Insert the SVG from a string or link', 'callout-box' ) }
+					placeholder={ __(
+						'Insert the SVG from a string or link',
+						'callout-box'
+					) }
 					value={ customSVG }
 					onChange={ setCustomSVG }
 					rows={ 30 }
 				/>
 			</FlexBlock>
-			<FlexItem style={{ flex: "0.5" }}>
+			<FlexItem style={ { flex: '0.5' } }>
 				<div className="wp-callout-box__custom-icon-box">
 					<SVG
 						src={ customSVG }
@@ -143,10 +145,10 @@ export default function IconsModal( props ) {
 						height={ 150 }
 						onError={ () => setIsCustomSVGValid( false ) }
 						onLoad={ () => setIsCustomSVGValid( true ) }
-						preProcessor={ (code) => {
+						preProcessor={ ( code ) => {
 							// It will use size from the block
-							code = code.replace(/width=".*?"/g, '');
-							code = code.replace(/height=".*?"/g, '');
+							code = code.replace( /width=".*?"/g, '' );
+							code = code.replace( /height=".*?"/g, '' );
 
 							setCustomSVG( code );
 
@@ -157,7 +159,7 @@ export default function IconsModal( props ) {
 				<div className="wp-callout-box__custom-icon-actions">
 					<Button
 						variant="primary"
-						disabled={ !isCustomSVGValid }
+						disabled={ ! isCustomSVGValid }
 						onClick={ () => {
 							setOpen( false );
 							setAttributes( {
@@ -171,7 +173,7 @@ export default function IconsModal( props ) {
 					</Button>
 					<Button
 						variant="link"
-						disabled={ !isCustomSVGValid }
+						disabled={ ! isCustomSVGValid }
 						onClick={ () => {
 							setCustomSVG( '' );
 							setIsCustomSVGValid( false );
@@ -180,17 +182,15 @@ export default function IconsModal( props ) {
 						Clear
 					</Button>
 				</div>
-				{
-					(customSVG !== '' && !isCustomSVGValid) && (
-						<Notice
-							status="error"
-							isDismissible={ false }
-							className="wp-callout-box__custom-icon-notice"
-						>
-							{ __( 'The inserted SVG is invalid.', 'callout-box' ) }
-						</Notice>
-					)
-				}
+				{ customSVG !== '' && ! isCustomSVGValid && (
+					<Notice
+						status="error"
+						isDismissible={ false }
+						className="wp-callout-box__custom-icon-notice"
+					>
+						{ __( 'The inserted SVG is invalid.', 'callout-box' ) }
+					</Notice>
+				) }
 			</FlexItem>
 		</Flex>
 	);
@@ -205,23 +205,23 @@ export default function IconsModal( props ) {
 			<TabPanel
 				className="wp-callout-box-tab-panel"
 				activeClass="active-tab"
-				initialTabName={ attributes.usingCustomSVG ? 'custom-svg' : 'library' }
+				initialTabName={
+					attributes.usingCustomSVG ? 'custom-svg' : 'library'
+				}
 				tabs={ [
 					{
 						name: 'library',
-						title: 'Library'
+						title: 'Library',
 					},
 					{
 						name: 'custom-svg',
-						title: 'Custom SVG'
-					}
+						title: 'Custom SVG',
+					},
 				] }
 			>
-				{
-					( tab ) => {
-						return tab.name === 'library' ? libraryTab : customSVGTab
-					}
-				}
+				{ ( tab ) => {
+					return tab.name === 'library' ? libraryTab : customSVGTab;
+				} }
 			</TabPanel>
 		</Modal>
 	);

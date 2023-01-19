@@ -5,11 +5,13 @@
   "version": "1.0.0",
   "title": "Callout Box",
   "category": "media",
-  "icon": "welcome-write-blog",
-  "description": "Add a styled box for featured content in the WordPress block editor.",
+  "description": "Insert a styled box for featured content.",
   "keywords": [
     "callout",
-    "box"
+    "box",
+    "featured",
+    "content",
+    "styled"
   ],
   "supports": {
     "anchor": true,
@@ -72,11 +74,6 @@
     }
   },
   "attributes": {
-    "content": {
-      "type": "string",
-      "source": "html",
-      "selector": "p"
-    },
     "style": {
       "type": "object",
       "default": {
