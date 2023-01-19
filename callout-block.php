@@ -7,7 +7,7 @@
  * Requires PHP:      7.4
  * Version:           1.0.0
  * Author:            Roel Magdaleno
- * Author UI:         https://roelmagdaleno.com
+ * Author URI:        https://roelmagdaleno.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       callout-block
