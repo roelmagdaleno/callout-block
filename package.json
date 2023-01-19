@@ -1,7 +1,7 @@
 {
 	"name": "callout-block",
 	"version": "1.0.0",
-	"description": "Add a styled box for featured content in the WordPress block editor.",
+	"description": "Add a styled box for featured content to the WordPress block editor.",
 	"author": "Roel Magdaleno",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",

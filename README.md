@@ -2,7 +2,7 @@
 
 ![Callout Block](https://i.imgur.com/oJWTOBJ.png)
 
-The Callout Block plugin registers a WordPress block that allows you to add a styled box for featured content in your Gutenberg block editor.
+The Callout Block plugin registers a WordPress block that allows you to add a styled box for featured content to your WordPress block editor.
 
 ### Key Features
 

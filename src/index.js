@@ -5,7 +5,7 @@ import Edit from './edit';
 import Save from './save';
 import { __ } from '@wordpress/i18n';
 
-registerBlockType( 'roelmagdaleno/callout-box', {
+registerBlockType( 'roelmagdaleno/callout-block', {
 	icon,
 	example: {
 		attributes: {
