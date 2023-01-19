@@ -5,7 +5,7 @@
   color: #1e1e1e !important;
   display: flex;
   flex-direction: column;
-  height: auto;
+  height: 80px;
   justify-content: center;
   padding: 8px !important;
   white-space: unset !important;

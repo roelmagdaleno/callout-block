@@ -49,9 +49,10 @@ If you want to edit the content for the reusable block, you have to transform yo
 == Screenshots ==
 
 1. Callout box with an icon from the library.
-2. Callout box with a custom icon by using an SVG string.
-3. Callout box with a custom icon by using an SVG link.
-4. Style the callout box and its icon.
+2. Callout box with a custom icon (The icon was inserted from a link).
+3. Callout box with more styling. The icon is bigger, the box has a border radius and a left border. The paragraph and button were moved by modifying their custom attributes.
+4. Icon Library.
+5. Custom SVG (SVG string and preview). You can insert SVG string or from a link.
 
 == Changelog ==
 
