@@ -12,27 +12,27 @@ A styled box for featured content.
 
 == Description ==
 
-The callout box plugin registers a WordPress block that allows you to add a styled box for featured content in your Gutenberg block editor.
+The Callout Block plugin registers a WordPress block that allows you to add a styled box for featured content in your Gutenberg block editor.
 
 === Key Features ===
 
 * Includes 200+ icons powered by [Heroicons](https://heroicons.com)
 * Use custom icons (loaded from SVG string or link)
-* Design your callout box using inner blocks
-* Transform your callout box to a reusable block
+* Design your callout block using inner blocks
+* Transform your callout block to a reusable block
 * Compatible with the Site Editor
 
 === Development ===
 
-* [View on GitHub](https://github.com/roelmagdaleno/callout-box)
+* [View on GitHub](https://github.com/roelmagdaleno/callout-block)
 
 == Installation ==
 
 This section describes how to install the plugin and get it working.
 
-1. Upload the plugin files to the `/wp-content/plugins/callout-box` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Inside the Block Editor, search the "Callout Box" block and insert it.
+1. Upload the plugin files to the `/wp-content/plugins/callout-block` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the "Plugins" screen in WordPress.
+3. Inside the Block Editor, search the "Callout" block and insert it.
 
 == Frequently Asked Questions ==
 
@@ -48,9 +48,9 @@ If you want to edit the content for the reusable block, you have to transform yo
 
 == Screenshots ==
 
-1. Callout box with an icon from the library.
-2. Callout box with a custom icon (The icon was inserted from a link).
-3. Callout box with more styling. The icon is bigger, the box has a border radius and a left border. The paragraph and button were moved by modifying their custom attributes.
+1. Callout with an icon from the library.
+2. Callout with a custom icon (The icon was inserted from a link).
+3. Callout with more styling. The icon is bigger, the block has a border radius and a left border. The paragraph and button were moved by modifying their custom attributes.
 4. Icon Library.
 5. Custom SVG (SVG string and preview). You can insert SVG string or from a link.
 

@@ -104,7 +104,7 @@ export default function IconsModal( props ) {
 				</div>
 				<div style={ { marginTop: '1rem' } }>
 					<p>
-						{ __( 'Icons powered by', 'callout-box' ) }{ ' ' }
+						{ __( 'Icons powered by', 'callout-block' ) }{ ' ' }
 						<a
 							href="https://heroicons.com"
 							target="_blank"
@@ -126,11 +126,11 @@ export default function IconsModal( props ) {
 		<Flex style={ { height: '100%', alignItems: 'unset', gap: '30px' } }>
 			<FlexBlock className="wp-callout-box__custom-icon-textarea-wrapper">
 				<TextareaControl
-					label={ __( 'Custom Icon', 'callout-box' ) }
+					label={ __( 'Custom Icon', 'callout-block' ) }
 					hideLabelFromVision={ true }
 					placeholder={ __(
 						'Insert the SVG from a string or link',
-						'callout-box'
+						'callout-block'
 					) }
 					value={ customSVG }
 					onChange={ setCustomSVG }
@@ -188,7 +188,7 @@ export default function IconsModal( props ) {
 						isDismissible={ false }
 						className="wp-callout-box__custom-icon-notice"
 					>
-						{ __( 'The inserted SVG is invalid.', 'callout-box' ) }
+						{ __( 'The inserted SVG is invalid.', 'callout-block' ) }
 					</Notice>
 				) }
 			</FlexItem>
@@ -197,7 +197,7 @@ export default function IconsModal( props ) {
 
 	return (
 		<Modal
-			title={ __( 'Callout Icon', 'callout-box' ) }
+			title={ __( 'Callout Icon', 'callout-block' ) }
 			className="wp-callout-box-modal"
 			onRequestClose={ () => setOpen( false ) }
 			isFullScreen={ true }

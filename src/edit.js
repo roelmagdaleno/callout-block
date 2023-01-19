@@ -58,11 +58,11 @@ export function Edit( props ) {
 		<>
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Icon', 'callout-box' ) }
+					title={ __( 'Icon', 'callout-block' ) }
 					initialOpen={ true }
 				>
 					<p>
-						{ __( 'Icons powered by', 'callout-box' ) }{ ' ' }
+						{ __( 'Icons powered by', 'callout-block' ) }{ ' ' }
 						<a
 							href="https://heroicons.com"
 							target="_blank"
@@ -108,7 +108,7 @@ export function Edit( props ) {
 					<PanelRow>
 						<div className="wp-callout-box-setting-box">
 							<NumberControl
-								label={ __( 'Width', 'callout-box' ) }
+								label={ __( 'Width', 'callout-block' ) }
 								value={ iconWidth }
 								min={ 0 }
 								disabled={ ! isIconSelected }
@@ -124,7 +124,7 @@ export function Edit( props ) {
 					<PanelRow>
 						<div className="wp-callout-box-setting-box">
 							<UnitControl
-								label={ __( 'Gap', 'callout-box' ) }
+								label={ __( 'Gap', 'callout-block' ) }
 								value={ iconGap }
 								disabled={ ! isIconSelected }
 								min={ 0 }
@@ -142,7 +142,7 @@ export function Edit( props ) {
 					settings={ [
 						{
 							colorValue: iconColor.color || iconColorValue,
-							label: __( 'Icon', 'callout-box' ),
+							label: __( 'Icon', 'callout-block' ),
 							onColorChange: ( colorValue ) => {
 								setIconColor( colorValue );
 								setAttributes( { iconColorValue: colorValue } );

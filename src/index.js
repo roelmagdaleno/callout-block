@@ -16,7 +16,7 @@ registerBlockType( 'roelmagdaleno/callout-box', {
 			{
 				name: 'core/paragraph',
 				attributes: {
-					content: __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'callout-box' ),
+					content: __( 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'callout-block' ),
 				}
 			}
 		]

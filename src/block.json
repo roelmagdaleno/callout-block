@@ -1,9 +1,9 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "roelmagdaleno/callout-box",
+	"name": "roelmagdaleno/callout-block",
 	"version": "1.0.0",
-	"title": "Callout Box",
+	"title": "Callout",
 	"category": "media",
 	"description": "Insert a styled box for featured content.",
 	"keywords": [ "callout", "box", "featured", "content", "styled" ],
@@ -104,7 +104,7 @@
 			"default": false
 		}
 	},
-	"textdomain": "callout-box",
+	"textdomain": "callout-block",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css"

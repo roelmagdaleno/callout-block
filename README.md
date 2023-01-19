@@ -1,28 +1,28 @@
-# Callout Box
+# Callout Block
 
-![Callout Box](https://i.imgur.com/mKHn1R4.png)
+![Callout Block](https://i.imgur.com/oJWTOBJ.png)
 
-The **callout box** plugin registers a WordPress block that allows you to add a styled box for featured content in your Gutenberg block editor.
+The Callout Block plugin registers a WordPress block that allows you to add a styled box for featured content in your Gutenberg block editor.
 
 ### Key Features
 
 - Includes 200+ icons powered by [Heroicons](https://heroicons.com)
 - Use custom icons (loaded from SVG string or link)
-- Design your callout box using inner blocks
-- Transform your callout box to a reusable block
+- Design your callout block using inner blocks
+- Transform your callout block to a reusable block
 - Compatible with the Site Editor
 
 ## Styling
 
-The callout box includes multiple features to style your callout box.
+Style your callout block by using multiple features.
 
 ### Border
 
-A callout box have borders (left, top, right, and bottom) and each of them have its own color, size, and radius.
+A callout block have borders (left, top, right, and bottom) and each of them have its own color, size, and radius.
 
 ### Colors
 
-Change the color of the next components from the callout box:
+Change the color of the next components from the callout block:
 
 - Background
 - Link
@@ -35,13 +35,13 @@ The background color supports solid and gradient colors.
 
 ### Dimensions
 
-Add a padding and margin to the callout box. The dimensions can be edited globally or by side (left, top, right, and bottom).
+Add a padding and margin to the callout block. The dimensions can be edited globally or by side (left, top, right, and bottom).
 
 Inside the **Dimensions** settings, you'll find a block spacing setting where you can select the gap between your inner blocks.
 
 ### Typography
 
-Change the typography of a callout box:
+Change the typography of a callout block:
 
 - Appearance
 - Decoration
@@ -60,7 +60,7 @@ The only thing that might change, when you manipulate the layout, is the icon po
 
 Icons powered by [Heroicons](https://heroicons.com).
 
-Insert an icon, from the library, to the callout box and edit its color, size, and a gap between the icon and the content.
+Insert an icon, from the library, to the callout block and edit its color, size, and a gap between the icon and the content.
 
 An icon from [Heroicons](https://heroicons.com) can be outlined or solid.
 
@@ -72,7 +72,7 @@ Also, you can insert a custom icon as an inner block, for example, install the [
 
 ### String
 
-Inside the text box, insert an SVG string and will render automatically to preview it. After that, insert it into the callout box.
+Inside the text box, insert an SVG string and will render automatically to preview it. After that, insert it into the callout block.
 
 ### Link
 
@@ -82,7 +82,7 @@ Inside the text box, insert an SVG that lives inside an external link, for examp
 https://upload.wikimedia.org/wikipedia/commons/0/09/Wordpress-Logo.svg
 ```
 
-The link extension should end with `.svg`, otherwise will throw an error. After that, insert it into the callout box.
+The link extension should end with `.svg`, otherwise will throw an error. After that, insert it into the callout block.
 
 ## Requirements
 
