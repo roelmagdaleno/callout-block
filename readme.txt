@@ -58,7 +58,10 @@ If you want to edit the content for the reusable block, you have to transform yo
 
 = 1.1.0 =
 
-* This version is only compatible with WP 6.2 or higher.
+This version is only compatible with WP 6.2 or higher. If you are using WP 6.1, please use the previous version.
+
+Also, attempt to recovery the block if it's broken after update.
+
 * FIX: Flex property missing after update WP 6.2 (#5)
 
 = 1.0.0 =

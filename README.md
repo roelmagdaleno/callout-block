@@ -86,5 +86,5 @@ The link extension should end with `.svg`, otherwise will throw an error. After 
 
 ## Requirements
 
-- WordPress 6.1+
+- WordPress 6.2+
 - PHP 7.4+
