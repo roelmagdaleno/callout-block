@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
 	"name": "roelmagdaleno/callout-block",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"title": "Callout",
 	"category": "media",
 	"description": "Insert a styled box for featured content.",

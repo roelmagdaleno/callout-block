@@ -1,10 +1,10 @@
 === Callout ===
 Contributors:      rokumetal
 Tags:              callout, callout box, featured box, styled box, block
-Requires at least: 6.1
-Tested up to:      6.1
+Requires at least: 6.2
+Tested up to:      6.2
 Requires PHP:      7.4
-Stable tag:        1.0.0
+Stable tag:        1.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,11 @@ If you want to edit the content for the reusable block, you have to transform yo
 5. Custom SVG (SVG string and preview). You can insert SVG string or from a link.
 
 == Changelog ==
+
+= 1.1.0 =
+
+* This version is only compatible with WP 6.2 or higher.
+* FIX: Flex property missing after update WP 6.2 (#5)
 
 = 1.0.0 =
 

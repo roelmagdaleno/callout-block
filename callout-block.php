@@ -3,9 +3,9 @@
 /**
  * Plugin Name:       Callout Block
  * Description:       Add a styled box for featured content to the WordPress block editor.
- * Requires at least: 6.1
+ * Requires at least: 6.2
  * Requires PHP:      7.4
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Roel Magdaleno
  * Author URI:        https://roelmagdaleno.com
  * License:           GPL-2.0-or-later
