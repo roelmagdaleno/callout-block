@@ -4,8 +4,8 @@ import { Icon } from '@wordpress/components';
 import parseIcon from './utils/parser-icon';
 import {
 	__experimentalGetGapCSSValue as getGapCSSValue,
-	InnerBlocks,
 	useBlockProps,
+	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 
 export default function Save( { attributes } ) {
@@ -23,10 +23,6 @@ export default function Save( { attributes } ) {
 
 	const iconGapStyles =
 		isIconSelected && iconGap !== '0' ? { gap: iconGap } : {};
-
-	const blockProps = useBlockProps.save( {
-		style: iconGapStyles,
-	} );
 
 	// Get the `gap` value from "Dimensions > Block Spacing"
 	const gapValue = getGapCSSValue( attributes.style?.spacing?.blockGap );
@@ -70,18 +66,19 @@ export default function Save( { attributes } ) {
 		'using-custom-svg': usingCustomSVG,
 	} );
 
+	const innerBlocksProps = useInnerBlocksProps.save(
+		useBlockProps.save( { style: iconGapStyles } )
+	);
+
 	return (
-		<div { ...blockProps }>
+		<div { ...innerBlocksProps }>
 			{ isIconSelected && (
 				<div className={ iconClasses } style={ iconStyles }>
 					<Icon icon={ iconToBeRender } size={ iconWidth } />
 				</div>
 			) }
-			<div
-				className="wp-callout-box__inner-blocks"
-				style={ { gap: gapValue } }
-			>
-				<InnerBlocks.Content />
+			<div style={ { gap: gapValue } }>
+				{ innerBlocksProps.children }
 			</div>
 		</div>
 	);

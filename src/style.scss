@@ -2,11 +2,11 @@
   padding: clamp(1.5rem, 5vw, 2rem);
 }
 
-.wp-callout-box__inner-blocks > * {
+.wp-block-roelmagdaleno-callout-block div:last-child > * {
   margin: 0;
 }
 
-.wp-callout-box__inner-blocks {
+.wp-block-roelmagdaleno-callout-block > div:last-child {
   display: flex;
   flex-direction: column;
 }

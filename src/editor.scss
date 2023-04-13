@@ -94,6 +94,7 @@
   resize: none;
 }
 
-.wp-callout-box__inner-blocks .block-list-appender {
+.wp-block-roelmagdaleno-callout-block .block-editor-inner-blocks,
+.wp-block-roelmagdaleno-callout-block.block-editor-block-list__block .block-list-appender:only-child {
   width: 100%;
 }

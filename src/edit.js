@@ -9,13 +9,14 @@ import {
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 	BlockControls,
 	ContrastChecker,
+	InnerBlocks,
 	InspectorControls,
 	useBlockProps,
 	useInnerBlocksProps,
 	withColors,
 } from '@wordpress/block-editor';
 
-import { Fragment, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 import {
 	__experimentalNumberControl as NumberControl,
@@ -54,8 +55,49 @@ export function Edit( props ) {
 
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
-	const inspectorControls = (
+	const iconGapStyles =
+		isIconSelected && iconGap !== '0' ? { gap: iconGap } : {};
+
+	const iconStyles = isIconSelected
+		? { width: `${ iconWidth }px`, height: `${ iconWidth }px` }
+		: {};
+
+	if ( iconColor.color || iconColorValue ) {
+		iconStyles.color = iconColor.color || iconColorValue;
+	}
+
+	const blockProps = useBlockProps( {
+		style: iconGapStyles,
+	} );
+
+	// Get the `gap` value from "Dimensions > Block Spacing"
+	const gapValue = getGapCSSValue( attributes.style?.spacing?.blockGap );
+
+	let iconToBeRender = '';
+
+	if ( isIconSelected ) {
+		iconToBeRender = usingCustomSVG ? (
+			parseIcon( customIcon )
+		) : (
+			<Heroicon
+				component={ icon }
+				type={ iconType }
+				width={ iconWidth }
+				height={ iconWidth }
+			/>
+		);
+	}
+
+	const iconClasses = classnames( 'wp-callout-box-icon__container', {
+		'using-from-library': icon !== '',
+		'using-custom-svg': usingCustomSVG,
+	} );
+
+	const innerBlocksProps = useInnerBlocksProps( blockProps );
+
+	return (
 		<>
+			<BlockControls />
 			<InspectorControls>
 				<PanelBody
 					title={ __( 'Icon', 'callout-block' ) }
@@ -136,7 +178,7 @@ export function Edit( props ) {
 					</PanelRow>
 				</PanelBody>
 			</InspectorControls>
-			<InspectorControls __experimentalGroup="color">
+			<InspectorControls group="color">
 				<ColorGradientSettingsDropdown
 					__experimentalIsRenderedInSidebar
 					settings={ [
@@ -168,67 +210,15 @@ export function Edit( props ) {
 					/>
 				) }
 			</InspectorControls>
-		</>
-	);
-
-	const iconGapStyles =
-		isIconSelected && iconGap !== '0' ? { gap: iconGap } : {};
-
-	const iconStyles = isIconSelected
-		? { width: `${ iconWidth }px`, height: `${ iconWidth }px` }
-		: {};
-
-	if ( iconColor.color || iconColorValue ) {
-		iconStyles.color = iconColor.color || iconColorValue;
-	}
-
-	const blockProps = useBlockProps( {
-		style: iconGapStyles,
-	} );
-
-	// Get the `gap` value from "Dimensions > Block Spacing"
-	const gapValue = getGapCSSValue( attributes.style?.spacing?.blockGap );
-
-	const innerBlocksProps = useInnerBlocksProps( {
-		className: 'wp-callout-box__inner-blocks',
-		style: {
-			gap: gapValue,
-		},
-	} );
-
-	let iconToBeRender = '';
-
-	if ( isIconSelected ) {
-		iconToBeRender = usingCustomSVG ? (
-			parseIcon( customIcon )
-		) : (
-			<Heroicon
-				component={ icon }
-				type={ iconType }
-				width={ iconWidth }
-				height={ iconWidth }
-			/>
-		);
-	}
-
-	const iconClasses = classnames( 'wp-callout-box-icon__container', {
-		'using-from-library': icon !== '',
-		'using-custom-svg': usingCustomSVG,
-	} );
-
-	return (
-		<Fragment>
-			{ inspectorControls }
-			<div { ...blockProps }>
-				{ <BlockControls /> }
+			<div { ...innerBlocksProps }>
 				{ isIconSelected && (
 					<div className={ iconClasses } style={ iconStyles }>
 						<Icon icon={ iconToBeRender } size={ iconWidth } />
 					</div>
 				) }
-				<div { ...innerBlocksProps } />
+				<InnerBlocks style={ { gap: gapValue } } />
 			</div>
-		</Fragment>
+		</>
 	);
 }
 
